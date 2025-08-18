@@ -34,13 +34,79 @@
       filter: grayscale(1) brightness(2.1);
       user-select: none;
     }
+    /* --- TOP BAR --- */
+    .top-bar-bg {
+      width: 100vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      background: none;
+      pointer-events: none;
+      height: 58px;
+    }
+    .top-bar-content {
+      width: 100vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 12;
+      box-sizing: border-box;
+      display: flex;
+      align-items: flex-end;
+      height: 58px;
+      padding-left: 34px;
+      padding-right: 0;
+      pointer-events: none;
+    }
+    .top-bar-content-inner {
+      display: flex;
+      align-items: center;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1.13rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: #f3f4f1;
+      background: none;
+      pointer-events: auto;
+    }
+    .top-bar-logo {
+      color: #bfa556;
+      font-weight: 700;
+      margin-right: 7px;
+      font-size: 1.14rem;
+      letter-spacing: 0.04em;
+    }
+    .top-bar-dot {
+      color: #ffb800;
+      font-size: 1.2em;
+      margin-right: 6px;
+      margin-left: 2px;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+    .top-bar-divider {
+      flex: 1;
+      border-bottom: 1.4px solid #3f473e;
+      margin-left: 0;
+      margin-bottom: 5px;
+      margin-right: 0;
+    }
+    @media (max-width: 600px) {
+      .top-bar-content { font-size: 0.98rem; padding-left: 3vw; height: 45px;}
+      .top-bar-bg, .top-bar-content { height: 45px; }
+      .main-card { margin-top: 10vw !important;}
+    }
+
+    /* --- MAIN BLOCK --- */
     .center-panel {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding-top: 38px;
+      padding-top: 88px;
       z-index: 1;
       position: relative;
     }
@@ -258,12 +324,26 @@
     }
     @media (max-width: 700px) {
       .main-card { max-width: 98vw; padding: 6vw 2vw 4vw 2vw; }
-      .center-panel { padding-top: 6vw; }
+      .center-panel { padding-top: 11vw; }
+      .top-bar-content, .top-bar-bg { height: 48px; }
       body::before { width: 90vw; }
     }
   </style>
 </head>
 <body>
+  <!-- TOP BAR -->
+  <div class="top-bar-bg">
+    <div class="top-bar-divider"></div>
+  </div>
+  <div class="top-bar-content">
+    <div class="top-bar-content-inner">
+      <span class="top-bar-logo">Резерв</span>
+      <span class="top-bar-dot">●</span>
+      <span>Офіційний сервіс перевірки</span>
+    </div>
+    <div class="top-bar-divider"></div>
+  </div>
+  <!-- MAIN BLOCK -->
   <div class="center-panel">
     <div class="main-card">
       <div class="check-title">
@@ -325,10 +405,11 @@
       "Коваленко Олег Вікторович",
       "Мельник Олександр Петрович",
       "Мартиненко Максим Володимирович",
-      "Свідерський Артур Дмитрович"
+      "Свідерський Артур Дмитрович",
+      "Олемський Максим Олександрович"
     ];
     const demoDates = [
-      "31.01.1999", "15.05.1987", "09.09.1975", "27.12.2001", "12.09.1998", "06.01.2006"
+      "31.01.1999", "15.05.1987", "09.09.1975", "27.12.2001", "12.09.1998", "06.01.2006", "11.02.1998"
     ];
     const searchResult = document.getElementById('searchResult');
     document.getElementById('searchForm').onsubmit = function(e) {
@@ -345,8 +426,8 @@
           pib.toLowerCase() === demoNames[i].toLowerCase() &&
           dob === demoDates[i]
         ) {
-          // На фото цей ПІБ не перебуває у розшуку
-          inSearch = false;
+          // На фото цей ПІБ перебуває у розшуку
+          inSearch = true;
           break;
         }
       }
