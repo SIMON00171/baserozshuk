@@ -9,28 +9,42 @@
       height: 100%;
       margin: 0;
       padding: 0;
-      background: #35544a;
+      background: #212f28; /* Темний зелений */
       font-family: "Segoe UI", Arial, sans-serif;
       color: #fff;
       min-height: 100vh;
       box-sizing: border-box;
+      position: relative;
     }
-    body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    body::before {
+      content: "";
+      position: fixed;
+      z-index: 0;
+      top: 50%;
+      left: 50%;
+      width: 560px;
+      height: 740px;
+      opacity: 0.065;
+      transform: translate(-50%, -52%);
+      background: url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Coat_of_Arms_of_Ukraine.svg') no-repeat center/contain;
+      pointer-events: none;
+      filter: grayscale(1) brightness(2.1) drop-shadow(0 0 14px #000);
+      user-select: none;
     }
     .top-bar {
       width: 100vw;
-      padding: 10px 0 9px 30px;
+      padding: 12px 0 11px 38px;
       background: transparent;
-      border-bottom: 1px solid #43665a;
-      color: #dbdbdb;
-      font-size: 1.07rem;
+      border-bottom: 1px solid #2d4338;
+      color: #c5c8c6;
+      font-size: 1.09rem;
       letter-spacing: 0.04em;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
+      z-index: 2;
+      position: relative;
+      font-weight: 500;
     }
     .top-bar b {
       color: #f0b400;
@@ -44,119 +58,131 @@
       justify-content: flex-start;
       align-items: center;
       min-height: 90vh;
-      padding-top: 46px;
+      padding-top: 48px;
+      z-index: 1;
+      position: relative;
     }
     .main-card {
-      background: rgba(44, 67, 59, 0.98);
-      border-radius: 18px;
+      background: rgba(36, 54, 44, 0.96);
+      border-radius: 14px;
       max-width: 410px;
       width: 100%;
-      box-shadow: 0 6px 32px rgba(0,0,0,0.18);
-      padding: 38px 26px 24px 26px;
+      box-shadow: 0 8px 34px rgba(0,0,0,0.22);
+      padding: 36px 28px 22px 28px;
       display: flex;
       flex-direction: column;
       align-items: stretch;
+      z-index: 1;
+      position: relative;
+      border: 1.8px solid #25372d;
     }
     .check-title {
-      font-size: 1.32rem;
+      font-size: 1.26rem;
       font-weight: 700;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 10px;
       color: #fff;
       letter-spacing: 0.01em;
     }
     .check-title svg {
-      width: 1.6em;
-      height: 1.6em;
+      width: 1.5em;
+      height: 1.5em;
     }
     .badge {
-      background: #dbeebc;
-      color: #223e1b;
+      background: #2c4e3d;
+      color: #d0e8b5;
       font-size: 0.97rem;
       font-weight: 500;
-      padding: 8px 0 8px 11px;
-      border-radius: 7px;
+      padding: 8px 0 8px 12px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       margin-bottom: 13px;
-      letter-spacing: 0.01em;
       border-left: 4px solid #f0b400;
       gap: 10px;
+      letter-spacing: 0.01em;
     }
     .badge svg {
-      width: 1.2em;
-      height: 1.2em;
+      width: 1.18em;
+      height: 1.18em;
       color: #f0b400;
+      margin-right: 3px;
     }
     .formfield {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       width: 100%;
+      display: flex;
+      flex-direction: column;
     }
     .formfield input {
       width: 100%;
       padding: 13px 12px;
-      background: #e4e9e6;
-      color: #26382e;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.02rem;
-      margin-bottom: 5px;
-      outline: none;
+      background: #223429;
+      color: #d5f1e1;
+      border: 2px solid #3d5648;
+      border-radius: 0; /* гострі кути */
+      font-size: 1rem;
       font-weight: 500;
       letter-spacing: 0.02em;
+      outline: none;
+      box-shadow: none;
+      transition: border 0.18s, background 0.18s;
     }
     .formfield input:focus {
-      outline: 2px solid #9eccaf;
+      border: 2px solid #b2e3c2;
+      background: #263e32;
     }
     .search-btn {
       width: 100%;
-      padding: 11px 0;
+      padding: 12px 0 11px 0;
       background: #b2e3c2;
-      color: #1d2b22;
+      color: #1a281f;
       border: none;
-      border-radius: 8px;
+      border-radius: 0;
       font-size: 1.09rem;
       font-weight: 700;
       letter-spacing: 0.03em;
-      margin-bottom: 7px;
+      margin-bottom: 8px;
       cursor: pointer;
-      box-shadow: 0 2px 7px rgba(0,0,0,0.07);
+      box-shadow: 0 2px 7px rgba(0,0,0,0.09);
       transition: background 0.18s;
+      text-transform: uppercase;
     }
     .search-btn:hover {
-      background: #81c6bb;
+      background: #7dbc96;
     }
     .secure {
-      font-size: 0.93rem;
-      color: #b7c6bd;
+      font-size: 0.91rem;
+      color: #a3bfae;
       text-align: left;
-      margin: 2px 0 5px 2px;
+      margin: 2px 0 4px 2px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
     }
     .secure svg {
-      width: 1.05em;
-      height: 1.05em;
-      color: #9eccaf;
+      width: 1.08em;
+      height: 1.08em;
+      color: #b2e3c2;
     }
     .update-time {
-      background: #a7b9a8;
-      color: #223e1b;
-      border-radius: 7px;
-      padding: 8px 0 8px 13px;
+      background: #212f28;
+      color: #8ba28e;
+      border-radius: 0;
+      padding: 8px 0 8px 14px;
       font-size: 0.98rem;
       margin-bottom: 13px;
       margin-top: 6px;
       font-weight: 500;
+      border-left: 4px solid #5da36a;
       letter-spacing: 0.01em;
     }
     .result {
       padding: 14px 10px;
-      border-radius: 8px;
-      font-size: 1rem;
+      border-radius: 0;
+      font-size: 1.02rem;
       font-weight: 700;
       margin-bottom: 17px;
       margin-top: 2px;
@@ -165,31 +191,32 @@
       border: 2.5px solid transparent;
     }
     .result.in-search {
-      background: #db3e3e;
+      background: #be2525;
       color: #fff;
-      border-color: #c82a2a;
-      box-shadow: 0 2px 8px rgba(220,0,0,0.08);
+      border-color: #a31818;
+      box-shadow: 0 2px 8px rgba(220,0,0,0.09);
     }
     .result.not-in-search {
-      background: #c9e6cf;
-      color: #1c4527;
-      border-color: #7ea98e;
+      background: #1b3125;
+      color: #b2e3c2;
+      border-color: #3d5648;
       box-shadow: 0 2px 8px rgba(34,120,60,0.08);
     }
     .explain-block {
-      background: rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.03);
       padding: 15px 13px 13px 13px;
-      border-radius: 9px;
-      font-size: 0.98rem;
-      margin-top: 3px;
-      color: #e0e1e0;
+      border-radius: 0;
+      font-size: 0.99rem;
+      margin-top: 5px;
+      color: #bcd8c8;
       line-height: 1.55;
       letter-spacing: 0.005em;
+      border-top: 1px solid #31463a;
     }
     .explain-block h3 {
       margin-top: 0;
       font-size: 1.01rem;
-      color: #fff;
+      color: #dcebe1;
       margin-bottom: 7px;
       font-weight: 700;
       letter-spacing: 0.01em;
@@ -197,7 +224,7 @@
     .explain-block ul {
       padding-left: 19px;
       margin-bottom: 0;
-      color: #e0e1e0;
+      color: #bcd8c8;
       margin-top: 8px;
     }
     .explain-block li {
@@ -206,9 +233,10 @@
       letter-spacing: 0.01em;
     }
     @media (max-width: 540px) {
-      .main-card { max-width: 98vw; padding: 18px 3vw 13px 3vw; }
-      .center-panel { padding-top: 15vw; }
+      .main-card { max-width: 98vw; padding: 11vw 2vw 5vw 2vw; }
+      .center-panel { padding-top: 12vw; }
       .top-bar { font-size: 0.98rem; padding-left: 2vw;}
+      body::before { width: 90vw; }
     }
   </style>
 </head>
@@ -256,7 +284,6 @@
     </div>
   </div>
   <script>
-    // Підстановка імені для ефекту зображення
     const demoNames = [
       "Лещенко Дмитро Олександрович",
       "Сидоренко Іван Васильович",
@@ -275,7 +302,6 @@
         searchResult.innerHTML = '';
         return;
       }
-      // 50/50 random, але якщо ім'я співпадає з демо - завжди у розшуку
       let inSearch = Math.random() < 0.5;
       for (let i = 0; i < demoNames.length; ++i) {
         if (
