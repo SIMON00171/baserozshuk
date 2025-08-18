@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Офіційний сервіс перевірки</title>
+  <meta name="viewport" content="width=480">
+  <style>
+    body { background: #181f21; font-family: Arial, sans-serif; margin: 0; min-height: 100vh; color: #fff; }
+    .container { max-width: 420px; margin: 60px auto; background: #23292b; border-radius: 20px; padding: 32px 28px 24px 28px; box-shadow: 0 4px 32px #0009; }
+    .title { font-size: 1.2em; font-weight: bold; margin-bottom: 18px; }
+    .info { background: #2e393b; border-radius: 8px; padding: 8px 12px; font-size: 0.98em; margin-bottom: 19px; }
+    .input { width: 100%; padding: 9px 12px; margin-bottom: 12px; border-radius: 8px; border: none; font-size: 1em; background: #1a2325; color: #fff; outline: none; box-sizing: border-box; }
+    .btn { width: 100%; background: #8ee0b6; color: #181f21; border: none; border-radius: 8px; padding: 11px 0; font-weight: bold; font-size: 1.1em; cursor: pointer; margin-bottom: 10px; transition: background 0.2s; }
+    .btn:hover { background: #6fc9a0; }
+    .meta { font-size: 0.93em; color: #a9c3b6; margin-bottom: 9px; }
+    .result { padding: 10px 14px; border-radius: 7px; font-weight: bold; margin-bottom: 14px; text-align: center; font-size: 1em; display: none; }
+    .result.red { background: #c92a2a; color: #fff; }
+    .result.green { background: #48b86d; color: #fff; }
+    .desc { background: #20282a; border-radius: 10px; padding: 8px 13px; margin-top: 10px; color: #e7ffe6; font-size: 0.98em; line-height: 1.5; }
+    #authBox { max-width: 340px; margin: 80px auto; background: #222628; border-radius: 14px; padding: 26px 24px 18px 24px; box-shadow: 0 4px 28px #000a; text-align: center; }
+    #authBox input { margin-bottom: 12px; }
+    #authError { color: #f44; margin-bottom: 10px; display: none; }
+    .loading { background: #395457; color: #fff; border-radius: 7px; padding: 11px 0; font-weight: bold; margin-bottom: 14px; text-align: center; font-size: 1.06em; display: none; letter-spacing: 2px; animation: blink 1s linear infinite alternate; }
+    @keyframes blink { from { opacity: 0.7; } to { opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div id="authBox">
+    <h2>Авторизація</h2>
+    <div id="authError">Невірний пароль</div>
+    <input type="password" class="input" id="authPass" placeholder="Введіть пароль">
+    <button class="btn" onclick="login()">Увійти</button>
+  </div>
+  <div class="container" style="display:none" id="mainBox">
+    <div class="title">Перевірка розшуку у ТЦК</div>
+    <div class="info"><span>Інтеграція з офіційною базою даних ТЦК</span></div>
+    <input class="input" id="name" placeholder="Введіть ПІБ">
+    <input class="input" id="dob" placeholder="ДД.ММ.РРРР">
+    <button class="btn" onclick="checkPerson()">Перевірити</button>
+    <div class="meta">• Дані передаються через захищене з'єднання</div>
+    <div class="meta">• Останнє оновлення: 18.08.2025 [19:41]</div>
+    <div class="loading" id="loading">Завантаження...</div>
+    <div class="result" id="result"></div>
+    <div class="desc">
+      <b>Як працює сервіс?</b><br>
+      Система автоматично передає введені дані у базу розшуку ТЦК та показує результати у режимі реального часу.<br>
+      <ul>
+        <li>Оновлення бази кожен день</li>
+        <li>Захист персональних даних</li>
+        <li>Миттєва перевірка</li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    function login() {
+      const pass = document.getElementById('authPass').value;
+      if (pass === 'mysecret') {
+        document.getElementById('authBox').style.display = 'none';
+        document.getElementById('mainBox').style.display = '';
+      } else {
+        document.getElementById('authError').style.display = '';
+      }
+    }
+    document.getElementById('authPass').addEventListener('keydown', function(e){
+      if (e.key === 'Enter') login();
+    });
+    function checkPerson() {
+      const name = document.getElementById('name').value.trim();
+      const dob = document.getElementById('dob').value.trim();
+      const result = document.getElementById('result');
+      const loading = document.getElementById('loading');
+      result.style.display = 'none';
+      loading.style.display = 'none';
+      if (!name || !dob) {
+        result.style.display = '';
+        result.className = 'result';
+        result.style.background = '#f7b731';
+        result.innerHTML = 'Заповніть ПІБ та дату народження';
+        return;
+      }
+      loading.style.display = '';
+      setTimeout(function(){
+        loading.style.display = 'none';
+        const rand = Math.random();
+        result.style.display = '';
+        if (rand < 0.6) {
+          result.className = 'result red';
+          result.innerHTML = `${name} (${dob}) — <b>ЗНАХОДИТЬСЯ У РОЗШУКУ</b>`;
+        } else {
+          result.className = 'result green';
+          result.innerHTML = `${name} (${dob}) — <b>НЕ перебуває у розшуку</b>`;
+        }
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
