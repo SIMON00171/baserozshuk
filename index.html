@@ -2,182 +2,293 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>Перевірка розшуку у ТЦК</title>
+  <title>Офіційний сервіс перевірки</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* Reset для GitHub Pages */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Arial, sans-serif !important;
-    }
     html, body {
       height: 100%;
-      background: #1c3a32 !important; /* темно-зелений фон */
-      color: #fff !important;
+      margin: 0;
+      padding: 0;
+      background: #35544a;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
     }
-
     body {
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 40px 12px;
+      flex-direction: column;
     }
-
-    .container {
-      background: #2e4a41 !important;
-      padding: 28px 26px;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 480px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
-    }
-
-    .header {
+    .top-bar {
+      width: 100vw;
+      padding: 10px 0 9px 30px;
+      background: transparent;
+      border-bottom: 1px solid #43665a;
+      color: #dbdbdb;
+      font-size: 1.07rem;
+      letter-spacing: 0.04em;
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
+      gap: 4px;
     }
-    .header h1 {
-      font-size: 1.25rem;
+    .top-bar b {
+      color: #f0b400;
+      margin-right: 4px;
       font-weight: 700;
     }
-
-    .info-badge {
-      background: #3a5f54;
-      color: #e6f6ea;
-      font-size: 0.92rem;
-      padding: 8px 10px;
-      border-radius: 6px;
-      margin-bottom: 16px;
+    .center-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 90vh;
+      padding-top: 46px;
+    }
+    .main-card {
+      background: rgba(44, 67, 59, 0.98);
+      border-radius: 18px;
+      max-width: 410px;
+      width: 100%;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.18);
+      padding: 38px 26px 24px 26px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .check-title {
+      font-size: 1.32rem;
+      font-weight: 700;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 11px;
+      color: #fff;
+      letter-spacing: 0.01em;
     }
-    .info-badge::before {
-      content: "🇺🇦";
+    .check-title svg {
+      width: 1.6em;
+      height: 1.6em;
     }
-
-    input[type="text"], input[type="date"] {
+    .badge {
+      background: #dbeebc;
+      color: #223e1b;
+      font-size: 0.97rem;
+      font-weight: 500;
+      padding: 8px 0 8px 11px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 13px;
+      letter-spacing: 0.01em;
+      border-left: 4px solid #f0b400;
+      gap: 10px;
+    }
+    .badge svg {
+      width: 1.2em;
+      height: 1.2em;
+      color: #f0b400;
+    }
+    .formfield {
+      margin-bottom: 10px;
       width: 100%;
-      padding: 11px 12px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      margin-bottom: 12px;
-      background: #f1f3f2;
-      color: #222 !important;
     }
-
-    button {
+    .formfield input {
       width: 100%;
-      padding: 12px 0;
-      background: #5fbf7b !important;
+      padding: 13px 12px;
+      background: #e4e9e6;
+      color: #26382e;
       border: none;
-      border-radius: 6px;
-      font-size: 1.05rem;
-      font-weight: 600;
-      cursor: pointer;
-      color: #fff !important;
-      transition: background 0.2s;
-    }
-    button:hover {
-      background: #4ea56a !important;
-    }
-
-    .secure {
-      margin: 12px 0 8px 0;
-      font-size: 0.9rem;
-      color: #c8c8c8 !important;
-      text-align: center;
-    }
-
-    .update-time {
-      background: #445e55;
-      padding: 9px 11px;
-      border-radius: 6px;
-      font-size: 0.92rem;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-
-    .result {
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 18px;
-      text-align: center;
-    }
-    .in-search {
-      background: #d9534f !important;
-      color: #fff !important;
-    }
-    .not-in-search {
-      background: #5fbf7b !important;
-      color: #fff !important;
-    }
-
-    .how-it-works {
-      background: rgba(255,255,255,0.05);
-      padding: 14px;
       border-radius: 8px;
-      font-size: 0.95rem;
-      line-height: 1.5;
+      font-size: 1.02rem;
+      margin-bottom: 5px;
+      outline: none;
+      font-weight: 500;
+      letter-spacing: 0.02em;
     }
-    .how-it-works h3 {
-      margin-top: 0;
+    .formfield input:focus {
+      outline: 2px solid #9eccaf;
+    }
+    .search-btn {
+      width: 100%;
+      padding: 11px 0;
+      background: #b2e3c2;
+      color: #1d2b22;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.09rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin-bottom: 7px;
+      cursor: pointer;
+      box-shadow: 0 2px 7px rgba(0,0,0,0.07);
+      transition: background 0.18s;
+    }
+    .search-btn:hover {
+      background: #81c6bb;
+    }
+    .secure {
+      font-size: 0.93rem;
+      color: #b7c6bd;
+      text-align: left;
+      margin: 2px 0 5px 2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .secure svg {
+      width: 1.05em;
+      height: 1.05em;
+      color: #9eccaf;
+    }
+    .update-time {
+      background: #a7b9a8;
+      color: #223e1b;
+      border-radius: 7px;
+      padding: 8px 0 8px 13px;
+      font-size: 0.98rem;
+      margin-bottom: 13px;
+      margin-top: 6px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    .result {
+      padding: 14px 10px;
+      border-radius: 8px;
       font-size: 1rem;
-      color: #f1f1f1;
+      font-weight: 700;
+      margin-bottom: 17px;
+      margin-top: 2px;
+      text-align: center;
+      letter-spacing: 0.01em;
+      border: 2.5px solid transparent;
+    }
+    .result.in-search {
+      background: #db3e3e;
+      color: #fff;
+      border-color: #c82a2a;
+      box-shadow: 0 2px 8px rgba(220,0,0,0.08);
+    }
+    .result.not-in-search {
+      background: #c9e6cf;
+      color: #1c4527;
+      border-color: #7ea98e;
+      box-shadow: 0 2px 8px rgba(34,120,60,0.08);
+    }
+    .explain-block {
+      background: rgba(255,255,255,0.09);
+      padding: 15px 13px 13px 13px;
+      border-radius: 9px;
+      font-size: 0.98rem;
+      margin-top: 3px;
+      color: #e0e1e0;
+      line-height: 1.55;
+      letter-spacing: 0.005em;
+    }
+    .explain-block h3 {
+      margin-top: 0;
+      font-size: 1.01rem;
+      color: #fff;
+      margin-bottom: 7px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+    .explain-block ul {
+      padding-left: 19px;
+      margin-bottom: 0;
+      color: #e0e1e0;
+      margin-top: 8px;
+    }
+    .explain-block li {
+      margin: 0 0 2px 0;
+      font-size: 0.98rem;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 540px) {
+      .main-card { max-width: 98vw; padding: 18px 3vw 13px 3vw; }
+      .center-panel { padding-top: 15vw; }
+      .top-bar { font-size: 0.98rem; padding-left: 2vw;}
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <span style="font-size:1.3rem;">🔍</span>
-      <h1>Перевірка розшуку у ТЦК</h1>
-    </div>
-    <div class="info-badge">Інтегровано з офіційною базою даних ТЦК</div>
-
-    <form id="searchForm" autocomplete="off">
-      <input type="text" id="pib" name="pib" placeholder="Введіть ПІБ" required>
-      <input type="text" id="dob" name="dob" placeholder="ДД.ММ.РРРР" required>
-      <button type="submit">Перевірити</button>
-    </form>
-
-    <div class="secure">🔒 Дані передаються через захищене з'єднання</div>
-    <div class="update-time">Останнє оновлення 17.08.2025 [13:21]</div>
-    <div id="searchResult"></div>
-
-    <div class="how-it-works">
-      <h3>Як працює сервіс?</h3>
-      Система автоматично перевіряє введені дані у базі розшуку ТЦК та повертає результат у режимі реального часу.
-      <ul>
-        <li>Оновлення бази щодня</li>
-        <li>Захист персональних даних</li>
-        <li>Миттєва перевірка</li>
-      </ul>
+  <div class="top-bar">
+    <b>Резерв+</b>
+    Офіційний сервіс перевірки
+  </div>
+  <div class="center-panel">
+    <div class="main-card">
+      <div class="check-title">
+        <svg fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="#fff" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+        Перевірка розшуку у ТЦК
+      </div>
+      <div class="badge">
+        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 2L2 5.5v4.7C2 15.6 10 19 10 19s8-3.4 8-8.8V5.5L10 2zM10 16.77c-2.41-1.11-6-3.22-6-6.57V6.32l6-2.61 6 2.61v3.88c0 3.35-3.59 5.46-6 6.57z"/><path d="M10 8.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0 1c-1.38 0-2.5 1.12-2.5 2.5S8.62 14.5 10 14.5s2.5-1.12 2.5-2.5S11.38 9.5 10 9.5z"/></svg>
+        Інтегровано з офіційною базою даних ТЦК
+      </div>
+      <form id="searchForm" autocomplete="off" style="margin-bottom:0;">
+        <div class="formfield">
+          <input type="text" id="pib" name="pib" placeholder="Введіть ПІБ" autocomplete="off" required>
+        </div>
+        <div class="formfield">
+          <input type="text" id="dob" name="dob" placeholder="ДД.ММ.РРРР" maxlength="10" pattern="\\d{2}\\.\\d{2}\\.\\d{4}" required>
+        </div>
+        <button type="submit" class="search-btn">Перевірити</button>
+      </form>
+      <div class="secure">
+        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a4 4 0 0 0-4 4v2H5a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3h-1V6a4 4 0 0 0-4-4zm-2 4a2 2 0 1 1 4 0v2h-4V6zm-3 5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6z"/></svg>
+        Дані передаються через захищене з'єднання
+      </div>
+      <div class="update-time">
+        Останнє оновлення 17.08.2025 [13:21]
+      </div>
+      <div id="searchResult"></div>
+      <div class="explain-block">
+        <h3>Як працює сервіс?</h3>
+        Система автоматично перевіряє введені дані у базі розшуку ТЦК та повертає результат у режимі реального часу.
+        <ul>
+          <li>Оновлення бази щодня</li>
+          <li>Захист персональних даних</li>
+          <li>Миттєва перевірка</li>
+        </ul>
+      </div>
     </div>
   </div>
-
   <script>
+    // Підстановка імені для ефекту зображення
+    const demoNames = [
+      "Лещенко Дмитро Олександрович",
+      "Сидоренко Іван Васильович",
+      "Коваленко Олег Вікторович",
+      "Мельник Олександр Петрович"
+    ];
+    const demoDates = [
+      "31.01.1999", "15.05.1987", "09.09.1975", "27.12.2001"
+    ];
+    const searchResult = document.getElementById('searchResult');
     document.getElementById('searchForm').onsubmit = function(e) {
       e.preventDefault();
       const pib = document.getElementById('pib').value.trim();
       const dob = document.getElementById('dob').value.trim();
-      let result = Math.random() < 0.5;
-      let resultDiv = document.getElementById('searchResult');
       if (!pib || !dob) {
-        resultDiv.innerHTML = '';
+        searchResult.innerHTML = '';
         return;
       }
-      if(result) {
-        resultDiv.innerHTML = `<div class="result in-search">${pib} (${dob}) — ЗНАХОДИТЬСЯ У РОЗШУКУ</div>`;
+      // 50/50 random, але якщо ім'я співпадає з демо - завжди у розшуку
+      let inSearch = Math.random() < 0.5;
+      for (let i = 0; i < demoNames.length; ++i) {
+        if (
+          pib.toLowerCase() === demoNames[i].toLowerCase() &&
+          dob === demoDates[i]
+        ) {
+          inSearch = true; break;
+        }
+      }
+      if (inSearch) {
+        searchResult.innerHTML = `<div class="result in-search">${pib} (${dob}) — <b>ЗНАХОДИТЬСЯ У РОЗШУКУ</b></div>`;
       } else {
-        resultDiv.innerHTML = `<div class="result not-in-search">${pib} (${dob}) — НЕ перебуває у розшуку</div>`;
+        searchResult.innerHTML = `<div class="result not-in-search">${pib} (${dob}) — не перебуває у розшуку</div>`;
       }
     };
   </script>
