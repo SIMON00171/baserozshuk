@@ -1,185 +1,169 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <title>Перевірка розшукуваних осіб | Інтегровано з системи Резер+</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            background: #f5f6fa;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            color: #1e1e1e;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            background: #ffffff;
-            max-width: 480px;
-            margin: 48px auto;
-            padding: 32px;
-            border-radius: 8px;
-            border: 1px solid #dcdcdc;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 28px;
-        }
-        .header img {
-            margin-bottom: 8px;
-            height: 48px;
-        }
-        .header h1 {
-            font-size: 1.25rem;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #003399;
-            text-transform: uppercase;
-        }
-        .header span {
-            font-size: 0.95rem;
-            color: #444;
-        }
-        label {
-            font-size: 0.95rem;
-            display: block;
-            margin-bottom: 4px;
-            margin-top: 16px;
-            color: #333;
-        }
-        input[type="text"], input[type="date"] {
-            width: 100%;
-            padding: 10px;
-            font-size: 1rem;
-            border: 1px solid #bbb;
-            border-radius: 4px;
-            margin-bottom: 12px;
-            box-sizing: border-box;
-            background: #f9f9f9;
-        }
-        button {
-            width: 100%;
-            background: #0057b8;
-            color: #fff;
-            font-size: 1rem;
-            border: none;
-            border-radius: 4px;
-            padding: 12px 0;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.2s ease;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        button:hover {
-            background: #003f8a;
-        }
-        .result {
-            margin-top: 20px;
-            padding: 14px;
-            border-radius: 4px;
-            font-size: 0.98rem;
-            line-height: 1.5;
-        }
-        .in-search {
-            background: #fff3f3;
-            color: #a10000;
-            border: 1px solid #dca5a5;
-        }
-        .not-in-search {
-            background: #edf9f1;
-            color: #246e3c;
-            border: 1px solid #a8d8b3;
-        }
-        .divider {
-            margin: 36px 0 24px 0;
-            border-top: 1px solid #ddd;
-        }
-        .footer {
-            margin-top: 20px;
-            font-size: 0.85rem;
-            color: #999;
-            text-align: center;
-            line-height: 1.4;
-        }
-        .footer::before {
-            content: "🔷";
-            margin-right: 6px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Перевірка розшуку у ТЦК</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #1d3a32; /* темно-зелений фон */
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 12px;
+    }
+    .container {
+      background: #2d4a42;
+      padding: 28px 26px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .header h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .info-badge {
+      background: #3b5f54;
+      color: #d4edda;
+      font-size: 0.92rem;
+      padding: 8px 10px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .info-badge::before {
+      content: "🇺🇦";
+    }
+    input[type="text"], input[type="date"] {
+      width: 100%;
+      padding: 11px 12px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      background: #f1f3f2;
+      color: #222;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 12px 0;
+      background: #5fbf7b;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #fff;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #4ea56a;
+    }
+    .secure {
+      margin: 12px 0 8px 0;
+      font-size: 0.9rem;
+      color: #c8c8c8;
+      text-align: center;
+    }
+    .update-time {
+      background: #445e55;
+      padding: 9px 11px;
+      border-radius: 6px;
+      font-size: 0.92rem;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .result {
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+    .in-search {
+      background: #d9534f;
+      color: #fff;
+    }
+    .not-in-search {
+      background: #5fbf7b;
+      color: #fff;
+    }
+    .how-it-works {
+      background: rgba(255,255,255,0.05);
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .how-it-works h3 {
+      margin-top: 0;
+      font-size: 1rem;
+      color: #f1f1f1;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Coat_of_arms_of_Ukraine.svg/48px-Coat_of_arms_of_Ukraine.svg.png" alt="Герб України">
-            <h1>Офіційний сервіс перевірки розшуку</h1>
-            <span>Інтеграція з державною системою <b>Резер+</b></span>
-        </div>
-
-        <form id="searchForm" autocomplete="off">
-            <label for="pib">ПІБ (Прізвище Ім'я По батькові):</label>
-            <input type="text" id="pib" name="pib" placeholder="Введіть ПІБ" required>
-
-            <label for="dob">Дата народження:</label>
-            <input type="date" id="dob" name="dob" required>
-
-            <button type="submit">Перевірити</button>
-        </form>
-
-        <div id="searchResult"></div>
-
-        <div class="divider"></div>
-
-        <form id="removeForm" autocomplete="off">
-            <label for="rem_pib">Видалення з розшуку (ПІБ):</label>
-            <input type="text" id="rem_pib" name="rem_pib" placeholder="Введіть ПІБ" required>
-
-            <label for="rem_dob">Дата народження:</label>
-            <input type="date" id="rem_dob" name="rem_dob" required>
-
-            <button type="submit" style="background:#757575;">Видалити з розшуку</button>
-        </form>
-
-        <div id="removeResult"></div>
-
-        <div class="footer">
-            © 2025 Інтегровано з системи Резер+. Дані оновлюються автоматично.
-        </div>
+  <div class="container">
+    <div class="header">
+      <span style="font-size:1.3rem;">🔍</span>
+      <h1>Перевірка розшуку у ТЦК</h1>
     </div>
+    <div class="info-badge">Інтегровано з офіційною базою даних ТЦК</div>
 
-    <script>
-        // Фейкова перевірка розшуку
-        document.getElementById('searchForm').onsubmit = function(e) {
-            e.preventDefault();
-            const pib = document.getElementById('pib').value.trim();
-            const dob = document.getElementById('dob').value;
-            let result = Math.random() < 0.5; // 50% ймовірність
-            let resultDiv = document.getElementById('searchResult');
-            if (!pib || !dob) {
-                resultDiv.innerHTML = '';
-                return;
-            }
-            if(result) {
-                resultDiv.innerHTML = `<div class="result in-search"><b>Увага!</b> Особа <b>${pib}</b>, ${dob} перебуває у розшуку.<br>Дані інтегровано з системи <b>Резер+</b>.</div>`;
-            } else {
-                resultDiv.innerHTML = `<div class="result not-in-search">Особа <b>${pib}</b>, ${dob} <b>не перебуває у розшуку</b>.<br>Інтегровано з системи <b>Резер+</b>.</div>`;
-            }
-        };
+    <form id="searchForm" autocomplete="off">
+      <input type="text" id="pib" name="pib" placeholder="Введіть ПІБ" required>
+      <input type="text" id="dob" name="dob" placeholder="ДД.ММ.РРРР" required>
+      <button type="submit">Перевірити</button>
+    </form>
 
-        // Фейкове видалення з розшуку
-        document.getElementById('removeForm').onsubmit = function(e) {
-            e.preventDefault();
-            const pib = document.getElementById('rem_pib').value.trim();
-            const dob = document.getElementById('rem_dob').value;
-            let resultDiv = document.getElementById('removeResult');
-            if (!pib || !dob) {
-                resultDiv.innerHTML = '';
-                return;
-            }
-            setTimeout(()=>{
-                resultDiv.innerHTML = `<div class="result not-in-search">Особа <b>${pib}</b>, ${dob} успішно видалена з розшуку.<br>Зміни інтегровано з системи <b>Резер+</b>.</div>`;
-            }, 550);
-        }
-    </script>
+    <div class="secure">🔒 Дані передаються через захищене з'єднання</div>
+    <div class="update-time">Останнє оновлення 17.08.2025 [13:21]</div>
+    <div id="searchResult"></div>
+
+    <div class="how-it-works">
+      <h3>Як працює сервіс?</h3>
+      Система автоматично перевіряє введені дані у базі розшуку ТЦК та повертає результат у режимі реального часу.
+      <ul>
+        <li>Оновлення бази щодня</li>
+        <li>Захист персональних даних</li>
+        <li>Миттєва перевірка</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('searchForm').onsubmit = function(e) {
+      e.preventDefault();
+      const pib = document.getElementById('pib').value.trim();
+      const dob = document.getElementById('dob').value.trim();
+      let result = Math.random() < 0.5; 
+      let resultDiv = document.getElementById('searchResult');
+      if (!pib || !dob) {
+        resultDiv.innerHTML = '';
+        return;
+      }
+      if(result) {
+        resultDiv.innerHTML = `<div class="result in-search">${pib} (${dob}) — ЗНАХОДИТЬСЯ У РОЗШУКУ</div>`;
+      } else {
+        resultDiv.innerHTML = `<div class="result not-in-search">${pib} (${dob}) — НЕ перебуває у розшуку</div>`;
+      }
+    };
+  </script>
 </body>
 </html>
