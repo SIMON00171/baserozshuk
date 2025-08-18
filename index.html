@@ -2,105 +2,120 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Інтегровано з системи Резер+ | Перевірка розшукуваних осіб</title>
+    <title>Перевірка розшукуваних осіб | Інтегровано з системи Резер+</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            background: #e7e7e7;
-            font-family: Arial, sans-serif;
-            color: #181818;
+            background: #f5f6fa;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            color: #1e1e1e;
             margin: 0;
             padding: 0;
         }
         .container {
-            background: #fff;
-            max-width: 410px;
-            margin: 48px auto 0 auto;
-            padding: 32px 28px 24px 28px;
-            border-radius: 12px;
-            box-shadow: 0 2px 14px 0 rgba(0,0,0,0.08);
+            background: #ffffff;
+            max-width: 480px;
+            margin: 48px auto;
+            padding: 32px;
+            border-radius: 8px;
+            border: 1px solid #dcdcdc;
         }
         .header {
             text-align: center;
-            margin-bottom: 26px;
+            margin-bottom: 28px;
+        }
+        .header img {
+            margin-bottom: 8px;
+            height: 48px;
         }
         .header h1 {
             font-size: 1.25rem;
-            margin-bottom: 4px;
-            font-weight: 700;
-            color: #343a40;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #003399;
+            text-transform: uppercase;
         }
         .header span {
             font-size: 0.95rem;
-            color: #888;
+            color: #444;
         }
         label {
-            font-size: 0.98rem;
+            font-size: 0.95rem;
             display: block;
             margin-bottom: 4px;
-            margin-top: 14px;
+            margin-top: 16px;
+            color: #333;
         }
         input[type="text"], input[type="date"] {
             width: 100%;
-            padding: 9px 11px;
+            padding: 10px;
             font-size: 1rem;
-            border: 1px solid #d0d0d0;
-            border-radius: 5px;
+            border: 1px solid #bbb;
+            border-radius: 4px;
             margin-bottom: 12px;
             box-sizing: border-box;
-            background: #fafbfc;
-            color: #222;
+            background: #f9f9f9;
         }
         button {
             width: 100%;
-            background: #1d6fa5;
+            background: #0057b8;
             color: #fff;
-            font-size: 1.06rem;
+            font-size: 1rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             padding: 12px 0;
             cursor: pointer;
-            margin-top: 8px;
-            transition: background 0.18s;
+            margin-top: 10px;
+            transition: background 0.2s ease;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         button:hover {
-            background: #10507a;
+            background: #003f8a;
         }
         .result {
             margin-top: 20px;
-            padding: 13px;
-            border-radius: 5px;
-            font-size: 1.05rem;
+            padding: 14px;
+            border-radius: 4px;
+            font-size: 0.98rem;
+            line-height: 1.5;
         }
         .in-search {
-            background: #ffeaea;
-            color: #d32f2f;
-            border: 1px solid #e07676;
+            background: #fff3f3;
+            color: #a10000;
+            border: 1px solid #dca5a5;
         }
         .not-in-search {
-            background: #eaf8ea;
-            color: #187e37;
-            border: 1px solid #99d39d;
+            background: #edf9f1;
+            color: #246e3c;
+            border: 1px solid #a8d8b3;
         }
         .divider {
-            margin: 32px 0 18px 0;
-            border-top: 1px solid #ececec;
+            margin: 36px 0 24px 0;
+            border-top: 1px solid #ddd;
         }
         .footer {
-            margin-top: 16px;
-            font-size: 0.93rem;
-            color: #8b8b8b;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #999;
             text-align: center;
+            line-height: 1.4;
+        }
+        .footer::before {
+            content: "🔷";
+            margin-right: 6px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Офіційний сервіс перевірки особи</h1>
-            <span>Інтегровано з системи <b>Резер+</b></span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Coat_of_arms_of_Ukraine.svg/48px-Coat_of_arms_of_Ukraine.svg.png" alt="Герб України">
+            <h1>Офіційний сервіс перевірки розшуку</h1>
+            <span>Інтеграція з державною системою <b>Резер+</b></span>
         </div>
+
         <form id="searchForm" autocomplete="off">
             <label for="pib">ПІБ (Прізвище Ім'я По батькові):</label>
             <input type="text" id="pib" name="pib" placeholder="Введіть ПІБ" required>
@@ -110,9 +125,11 @@
 
             <button type="submit">Перевірити</button>
         </form>
+
         <div id="searchResult"></div>
 
         <div class="divider"></div>
+
         <form id="removeForm" autocomplete="off">
             <label for="rem_pib">Видалення з розшуку (ПІБ):</label>
             <input type="text" id="rem_pib" name="rem_pib" placeholder="Введіть ПІБ" required>
@@ -122,12 +139,14 @@
 
             <button type="submit" style="background:#757575;">Видалити з розшуку</button>
         </form>
+
         <div id="removeResult"></div>
-        
+
         <div class="footer">
-            <span>© 2025 Інтегровано з системи Резер+. Дані оновлюються автоматично.</span>
+            © 2025 Інтегровано з системи Резер+. Дані оновлюються автоматично.
         </div>
     </div>
+
     <script>
         // Фейкова перевірка розшуку
         document.getElementById('searchForm').onsubmit = function(e) {
