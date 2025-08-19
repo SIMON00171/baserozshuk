@@ -1,365 +1,361 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <title>Офіційний сервіс перевірки</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Стриманий, офіційний шрифт -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background: #232a23;
-      font-family: 'Roboto', Arial, sans-serif;
-      color: #fff;
-      min-height: 100vh;
-      box-sizing: border-box;
-      overflow-x: hidden;
-      position: relative;
-    }
-    /* TOP BAR */
-    .top-bar {
-      width: 100vw;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 30;
-      height: 68px;
-      display: flex;
-      align-items: center;
-      padding-left: 36px;
-      background: none;
-      box-sizing: border-box;
-    }
-    .logo-svg {
-      height: 36px;
-      width: auto;
-      display: block;
-      margin-top: 2px;
-    }
-    /* MAIN BLOCK */
-    .center-panel {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding-top: 86px;
-      z-index: 1;
-      position: relative;
-    }
-    .main-card {
-      position: relative;
-      background: #3c4b3c;
-      border-radius: 25px;
-      max-width: 520px;
-      width: 100%;
-      box-shadow: 0 6px 22px rgba(0,0,0,0.16);
-      padding: 38px 36px 30px 36px;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      z-index: 2;
-      overflow: hidden;
-      box-sizing: border-box;
-    }
-    .check-title {
-      font-size: 2.1rem;
-      font-weight: 700;
-      margin-bottom: 32px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      color: #fff;
-      font-family: 'Roboto', Arial, sans-serif;
-    }
-    .check-title svg {
-      width: 2.2rem;
-      height: 2.2rem;
-      margin-right: 8px;
-      flex-shrink: 0;
-    }
-    .badge {
-      background: #efe78c;
-      color: #232a23;
-      font-size: 1.03rem;
-      font-weight: 500;
-      padding: 11px 0 11px 16px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      margin-bottom: 25px;
-      gap: 11px;
-      letter-spacing: 0.01em;
-      border-left: 6px solid #ffd600;
-      font-family: 'Roboto', Arial, sans-serif;
-    }
-    .badge::before {
-      content: "🇺🇦";
-      font-size: 1.13em;
-      margin-right: 9px;
-    }
-    .fields-table {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      margin-bottom: 14px;
-    }
-    .formfield {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-    }
-    .formfield input {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 13px 15px;
-      background: #475647;
-      color: #e5e5e5;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.09rem;
-      font-weight: 500;
-      outline: none;
-      margin: 0;
-      text-align: left;
-      font-family: 'Roboto', Arial, sans-serif;
-      transition: background 0.15s, color 0.15s;
-      letter-spacing: 0.01em;
-    }
-    .formfield input:focus {
-      background: #3c4b3c;
-      color: #fff;
-    }
-    .formfield input::placeholder {
-      color: #b9b9b9;
-      opacity: 0.95;
-      font-weight: 500;
-      font-family: 'Roboto', Arial, sans-serif;
-    }
-    .search-btn {
-      width: 100%;
-      padding: 15px 0;
-      background: #bff2d0;
-      color: #232a23;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.16rem;
-      font-weight: 600;
-      margin-bottom: 22px;
-      cursor: pointer;
-      font-family: 'Roboto', Arial, sans-serif;
-      transition: background 0.2s;
-    }
-    .search-btn:hover {
-      background: #a5dcb5;
-    }
-    .secure {
-      font-size: 1rem;
-      color: #e1e8e2;
-      margin: 0 0 17px 2px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-weight: 500;
-      font-family: 'Roboto', Arial, sans-serif;
-    }
-    .secure::before {
-      content: "🛡️";
-      font-size: 1.05em;
-      margin-right: 6px;
-    }
-    .update-time {
-      background: none;
-      border-radius: 8px;
-      padding: 0;
-      font-size: 1.07rem;
-      margin-bottom: 20px;
-      font-weight: 500;
-      color: #e1e8e2;
-      border-left: none;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      opacity: 0.93;
-      font-family: 'Roboto', Arial, sans-serif;
-    }
-    .update-time::before {
-      content: "•";
-      color: #bff2d0;
-      font-size: 1.15rem;
-      margin-right: 7px;
-      margin-left: 0;
-    }
-    .result {
-      padding: 18px 12px;
-      border-radius: 8px;
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      text-align: center;
-      font-family: 'Roboto', Arial, sans-serif;
-      letter-spacing: 0.01em;
-      box-sizing: border-box;
-    }
-    .result.in-search {
-      background: #d13a3a;
-      color: #fff;
-    }
-    .result.not-in-search {
-      background: #58be2e;
-      color: #fff;
-    }
-    .loader-block {
-      padding: 24px 0;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .loader {
-      display: inline-block;
-      width: 36px;
-      height: 36px;
-      border: 4px solid #bff2d0;
-      border-radius: 50%;
-      border-top: 4px solid #3c4b3c;
-      animation: spin 1s linear infinite;
-      margin-bottom: 8px;
-    }
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
-    }
-    .delete-btn {
-      width: 100%;
-      padding: 13px 0;
-      background: #e3d9a0;
-      color: #232a23;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.08rem;
-      font-weight: 700;
-      cursor: pointer;
-      margin-bottom: 14px;
-      font-family: 'Roboto', Arial, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: background 0.2s;
-    }
-    .delete-btn:hover {
-      background: #ffe493;
-    }
-    .delete-btn svg {
-      width: 20px;
-      height: 20px;
-      fill: #232a23;
-    }
-    .explain-block {
-      background: #3c4b3c;
-      padding: 21px 18px 18px 18px;
-      border-radius: 11px;
-      font-size: 1.10rem;
-      line-height: 1.53;
-      font-weight: 400;
-      margin-top: 6px;
-      color: #f3f4f1;
-      position: relative;
-      overflow: hidden;
-      font-family: 'Roboto', Arial, sans-serif;
-      box-sizing: border-box;
-    }
-    .explain-block h3 {
-      margin-top: 0;
-      font-size: 1.09rem;
-      margin-bottom: 7px;
-      font-weight: 700;
-      font-family: 'Roboto', Arial, sans-serif;
-    }
-    .explain-block ul {
-      margin: 8px 0 0 0;
-      padding-left: 18px;
-    }
-    .explain-block ul li {
-      margin-bottom: 6px;
-      font-size: 1.03rem;
-      color: #e2e7e3;
-      font-family: 'Roboto', Arial, sans-serif;
-    }
-    /* Герб на фоні explain-block */
-    .explain-block::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      width: 220px;
-      height: 120px;
-      opacity: 0.16;
-      transform: translateX(-50%);
-      background: url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Coat_of_Arms_of_Ukraine.svg') no-repeat center/contain;
-      pointer-events: none;
-    }
-    .official-link {
-      margin-top: 8px;
-      color: #ffe493;
-      text-decoration: underline;
-      font-size: 0.98rem;
-      font-weight: 500;
-      display: inline-block;
-      font-family: 'Roboto', Arial, sans-serif;
-    }
-    @media (max-width: 600px) {
-      .main-card {
-        max-width: 97vw;
-        padding: 22px 7vw 20px 7vw;
-      }
-      .check-title {
-        font-size: 1.22rem;
-      }
-      .logo-svg {
-        max-width: 140px;
-        height: 32px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перевірка розшуку у ТЦК</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Roboto", "Segoe UI", Tahoma, sans-serif;
+            background: linear-gradient(135deg, #1f2520, #111613);
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+        header {
+            background: #eae7d2;
+            padding: 0;
+            border-bottom: 3px solid #d7cfab;
+        }
+        .brand {
+            max-width: 980px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 0 14px 0;
+        }
+        .logo-svg {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+        .brand .title {
+            font-weight: 600;
+            letter-spacing: .2px;
+            color: #191919;
+            font-size: 1.25rem;
+            margin-left: 16px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background: #2a322c;
+            padding: 28px 25px 32px 25px;
+            border-radius: 16px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.38);
+            position: relative;
+            overflow: hidden;
+        }
+        /* Герб на фоні */
+        .container::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 73%;
+            width: 220px;
+            height: 130px;
+            opacity: 0.11;
+            transform: translate(-50%, 0);
+            background: url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Coat_of_Arms_of_Ukraine.svg') no-repeat center/contain;
+            pointer-events: none;
+            z-index: 1;
+        }
+        h1 {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-size: 27px;
+            font-weight: 700;
+            color: #e0e6de;
+            margin-bottom: 17px;
+            margin-left: 0;
+            text-align: left;
+            justify-content: flex-start;
+            position: relative;
+            z-index: 2;
+            font-family: "Roboto", "Segoe UI", Tahoma, sans-serif;
+        }
+        h1 svg {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+        }
+        .subtitle {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+            text-align: left;
+            font-size: 15px;
+            color: #232a23;
+            background: #efe78c;
+            border-left: 5px solid #ffd600;
+            padding: 8px 15px;
+            border-radius: 7px;
+            margin-bottom: 22px;
+            font-weight: 500;
+            margin-left: 0;
+            position: relative;
+            z-index: 2;
+            letter-spacing: 0.02em;
+        }
+        .subtitle .mini-logo {
+            height: 22px;
+            width: auto;
+            opacity: .90;
+            margin-right: 5px;
+        }
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+        input {
+            flex: 1 1 100%;
+            padding: 13px;
+            border: 1px solid #5e6a62;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #353e37;
+            color: white;
+            outline: none;
+            font-family: "Roboto", "Segoe UI", Tahoma, sans-serif;
+            transition: background 0.15s, color 0.15s;
+        }
+        input:focus {
+            background: #2a322c;
+            color: #fff;
+        }
+        input::placeholder {
+            color: #a8b2a8;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+        button, .delete-btn {
+            flex: 1;
+            padding: 13px 0;
+            background-color: #bff2d0;
+            color: #232a23;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: "Roboto", "Segoe UI", Tahoma, sans-serif;
+            margin-bottom: 0;
+            margin-top: 0;
+            margin-left: 0;
+            margin-right: 0;
+            box-sizing: border-box;
+        }
+        button:hover, .delete-btn:hover {
+            background-color: #afe1c4;
+        }
+        .details {
+            font-size: 13px;
+            color: #d1d9d1;
+            margin-top: 5px;
+            text-align: left;
+            position: relative;
+            z-index: 2;
+            margin-left: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .details::before {
+            content: "🛡️";
+            font-size: 1.05em;
+        }
+        .update-time {
+            background: #37453b;
+            border-radius: 8px;
+            padding: 7px 12px;
+            font-size: 1.07rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+            color: #e1e8e2;
+            border-left: 4px solid #bff2d0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.93;
+            font-family: 'Roboto', Arial, sans-serif;
+            margin-left: 5px;
+        }
+        .update-time::before {
+            content: "•";
+            color: #bff2d0;
+            font-size: 1.15rem;
+            margin-right: 7px;
+        }
+        .result {
+            margin-top: 23px;
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+            position: relative;
+            z-index: 2;
+            font-family: "Roboto", "Segoe UI", Tahoma, sans-serif;
+            font-size: 1.13rem;
+            letter-spacing: 0.01em;
+        }
+        .status-ok {
+            background-color: #58be2e;
+            border: 1px solid #3d8f20;
+            color: #fff;
+            display: block;
+        }
+        .status-alert {
+            background-color: #d13a3a;
+            border: 1px solid #992020;
+            color: #fff;
+            display: block;
+        }
+        .loader-block {
+            margin-top: 23px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .loader {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            border: 4px solid #bff2d0;
+            border-radius: 50%;
+            border-top: 4px solid #2a322c;
+            animation: spin 1s linear infinite;
+            margin-bottom: 8px;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        .explain-block {
+            background: #37453b;
+            border-radius: 11px;
+            padding: 19px 18px 28px 18px;
+            font-size: 1.10rem;
+            line-height: 1.53;
+            font-weight: 400;
+            margin-top: 18px;
+            color: #f3f4f1;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Roboto', Arial, sans-serif;
+            box-sizing: border-box;
+            margin-left: 5px;
+        }
+        .explain-block h3 {
+            margin-top: 0;
+            font-size: 1.13rem;
+            margin-bottom: 7px;
+            font-weight: 700;
+            font-family: 'Roboto', Arial, sans-serif;
+            color: #fff;
+        }
+        .explain-block ul {
+            margin: 8px 0 0 0;
+            padding-left: 18px;
+        }
+        .explain-block ul li {
+            margin-bottom: 6px;
+            font-size: 1.03rem;
+            color: #e2e7e3;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        .explain-block .official-link {
+            margin-top: 8px;
+            color: #ffe493;
+            text-decoration: underline;
+            font-size: 0.98rem;
+            font-weight: 500;
+            display: inline-block;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        .explain-block .official-link::before {
+            content: "🇺🇦 ";
+        }
+        .delete-btn {
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            background: #bff2d0;
+            color: #37453b;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        .delete-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: #37453b;
+        }
+        @media (max-width: 650px) {
+            .container {
+                max-width: 98vw;
+                padding: 19px 3vw 24px 3vw;
+            }
+            h1 {
+                font-size: 19px;
+            }
+            .logo-svg {
+                height: 32px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- TOP BAR (SVG лого як на фото) -->
-  <div class="top-bar">
-    <svg class="logo-svg" viewBox="0 0 285 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <text x="0" y="32" font-family="Roboto, Arial, sans-serif" font-size="40" font-weight="700" fill="#181818">Резерв</text>
-      <text x="210" y="32" font-family="Roboto, Arial, sans-serif" font-size="40" font-weight="700" fill="#FF9900">+</text>
-    </svg>
-  </div>
-  <!-- MAIN BLOCK -->
-  <div class="center-panel">
-    <div class="main-card">
-      <div class="check-title">
+<header aria-label="Шапка сайту">
+    <div class="brand" role="banner">
+        <!-- SVG логотип як на фото -->
+        <svg class="logo-svg" viewBox="0 0 285 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="32" font-family="Roboto, Arial, sans-serif" font-size="40" font-weight="700" fill="#181818">Резерв</text>
+            <text x="210" y="32" font-family="Roboto, Arial, sans-serif" font-size="40" font-weight="700" fill="#FF9900">+</text>
+        </svg>
+        <span class="title">Офіційний сервіс перевірки</span>
+    </div>
+</header>
+<div class="container">
+    <h1>
         <svg fill="none" viewBox="0 0 32 32"><circle cx="15" cy="15" r="11" stroke="#fff" stroke-width="2"/><path d="M28 28l-6-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>
         Перевірка розшуку у ТЦК
-      </div>
-      <div class="badge">
-        Інтегровано з офіційною Базою даних ТЦК
-      </div>
-      <form id="searchForm" autocomplete="off">
-        <div class="fields-table">
-          <div class="formfield">
-            <input type="text" id="pib" placeholder="Тислюк Роман Володимирович" required>
-          </div>
-          <div class="formfield">
-            <input type="text" id="dob" placeholder="21.01.1982" maxlength="10" inputmode="numeric" required>
-          </div>
-        </div>
-        <button type="submit" class="search-btn">Перевірити</button>
-      </form>
-      <div class="secure">Дані передаються через захищене з'єднання</div>
-      <div class="update-time">Останнє оновлення Бази даних 17.08.2025 [13:21]</div>
-      <div id="searchResult"></div>
-      <div id="deleteBlock"></div>
-      <div class="explain-block">
+    </h1>
+    <div class="subtitle">
+        <img class="mini-logo" src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Coat_of_Arms_of_Ukraine.svg" alt="Тризуб" />
+         Інтегровано з офіційною Базою даних ТЦК
+    </div>
+    <div class="search-box">
+        <input type="text" id="pib" placeholder="Введіть ПІБ">
+        <input type="text" id="dob" placeholder="ДД.ММ.РРРР" maxlength="10">
+        <button id="searchBtn" type="button">Перевірити</button>
+    </div>
+    <div class="details">Дані передаються через захищене з'єднання</div>
+    <div class="update-time">Останнє оновлення Бази даних 17.08.2025 [13:21]</div>
+    <div id="loader" class="loader-block" style="display:none;">
+        <div class="loader"></div>
+        <div>Шукаємо інформацію...</div>
+    </div>
+    <div id="result" class="result"></div>
+    <div id="deleteBlock"></div>
+    <div class="explain-block">
         <h3>Як працює сервіс?</h3>
         Система автоматично перевіряє введені дані у базі розшуку ТЦК та повертає результат у режимі реального часу.
         <ul>
@@ -368,65 +364,72 @@
           <li>Миттєва перевірка</li>
         </ul>
         <a href="#" class="official-link">Офіційний реєстр даних ТЦК</a>
-      </div>
     </div>
-  </div>
-  <script>
-    // автоформат для дати
-    const dobInput = document.getElementById('dob');
-    dobInput.addEventListener('input', function() {
-      let val = dobInput.value.replace(/\D/g, '');
-      if (val.length > 8) val = val.substr(0,8);
-      let newVal = '';
-      if (val.length >= 1) newVal += val.substr(0,2);
-      if (val.length >= 3) newVal += '.' + val.substr(2,2);
-      if (val.length >= 5) newVal += '.' + val.substr(4,4);
-      dobInput.value = newVal;
+</div>
+
+<script>
+    // Автоформат для дати
+    document.getElementById('dob').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length >= 2) value = value.slice(0,2) + '.' + value.slice(2);
+        if (value.length >= 5) value = value.slice(0,5) + '.' + value.slice(5);
+        e.target.value = value.slice(0, 10);
     });
 
-    // Демо база
     const demoNames = ["Тислюк Роман Володимирович"];
     const demoDates = ["21.01.1982"];
-    const searchResult = document.getElementById('searchResult');
+    const searchBtn = document.getElementById('searchBtn');
+    const resultBox = document.getElementById('result');
+    const loaderBlock = document.getElementById('loader');
     const deleteBlock = document.getElementById('deleteBlock');
 
-    // Пошук із затримкою та анімацією
-    document.getElementById('searchForm').onsubmit = function(e) {
-      e.preventDefault();
-      searchResult.innerHTML = '';
-      deleteBlock.innerHTML = '';
-      const pib = document.getElementById('pib').value.trim();
-      const dob = document.getElementById('dob').value.trim();
+    searchBtn.onclick = function() {
+        const pib = document.getElementById('pib').value.trim();
+        const dob = document.getElementById('dob').value.trim();
 
-      // Loader animation
-      searchResult.innerHTML = `
-        <div class="loader-block">
-          <div class="loader"></div>
-          <div>Шукаємо інформацію...</div>
-        </div>
-      `;
-
-      setTimeout(function() {
-        // У розшуку
-        if (pib.toLowerCase() === demoNames[0].toLowerCase() && dob === demoDates[0]) {
-          searchResult.innerHTML = `<div class="result in-search">${pib} (${dob}) — <b>ЗНАХОДИТЬСЯ У РОЗШУКУ</b></div>`;
-          // Кнопка видалення
-          deleteBlock.innerHTML = `
-            <button class="delete-btn" id="deleteBtn">
-              <svg viewBox="0 0 24 24"><path d="M5 6h14M6 6v12a2 2 0 002 2h8a2 2 0 002-2V6m-9 4v6m4-6v6" stroke="#232a23" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-              Видалення особи із Бази
-            </button>
-          `;
-          document.getElementById('deleteBtn').onclick = function() {
-            searchResult.innerHTML = `<div class="result not-in-search">${pib} (${dob}) — <b>Не перебуває у розшуку</b></div>`;
-            deleteBlock.innerHTML = '';
-          };
-        } else {
-          // Не у розшуку
-          searchResult.innerHTML = `<div class="result not-in-search">${pib} (${dob}) — <b>Не перебуває у розшуку</b></div>`;
+        // Перевірка
+        if (pib === "" || dob === "") {
+            alert("Будь ласка, введіть ПІБ та дату народження");
+            return;
         }
-      }, 1500);
+
+        // Сховати результат/видалення, показати loader
+        resultBox.style.display = "none";
+        deleteBlock.innerHTML = "";
+        loaderBlock.style.display = "block";
+
+        setTimeout(() => {
+            loaderBlock.style.display = "none";
+            let statusText = "", inSearch = false;
+
+            // Демо: якщо дані співпадають - у розшуку
+            if (pib.toLowerCase() === demoNames[0].toLowerCase() && dob === demoDates[0]) {
+                inSearch = true;
+            }
+
+            if (inSearch) {
+                resultBox.className = "result status-alert";
+                statusText = `<strong>${pib}</strong> (${dob}) — ЗНАХОДИТЬСЯ У РОЗШУКУ`;
+                // Кнопка видалення
+                deleteBlock.innerHTML = `
+                    <button class="delete-btn" id="deleteBtn">
+                        <svg viewBox="0 0 24 24"><path d="M5 6h14M6 6v12a2 2 0 002 2h8a2 2 0 002-2V6m-9 4v6m4-6v6" stroke="#37453b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                        Видалення особи із Бази
+                    </button>
+                `;
+                document.getElementById('deleteBtn').onclick = function() {
+                    resultBox.className = "result status-ok";
+                    resultBox.innerHTML = `<strong>${pib}</strong> (${dob}) — Не перебуває у розшуку`;
+                    deleteBlock.innerHTML = "";
+                };
+            } else {
+                resultBox.className = "result status-ok";
+                statusText = `<strong>${pib}</strong> (${dob}) — Не перебуває у розшуку`;
+            }
+            resultBox.innerHTML = statusText;
+            resultBox.style.display = "block";
+        }, 1500);
     };
-  </script>
+</script>
 </body>
 </html>
