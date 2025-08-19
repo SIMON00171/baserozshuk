@@ -36,30 +36,20 @@
             letter-spacing: .2px;
         }
         .container {
-            max-width: 500px;
+            max-width: 650px; /* ширший блок */
             margin: 40px auto;
             background: #2a322c;
-            padding: 25px;
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 6px 25px rgba(0,0,0,0.4);
             position: relative;
             overflow: hidden;
         }
-        .container::after {
-            content: "";
-            position: absolute;
-            right: -20px;
-            bottom: -20px;
-            width: 300px;
-            height: 300px;
-            opacity: .06;
-            pointer-events: none;
-        }
         h1 {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 26px;
+            font-size: 28px;
             color: #e0e6de;
             margin-bottom: 15px;
             margin-left: 5px;
@@ -67,7 +57,7 @@
             justify-content: flex-start;
         }
         h1 img {
-            height: 32px;
+            height: 36px;
             width: auto;
         }
         .subtitle {
@@ -120,6 +110,10 @@
             font-size: 16px;
             cursor: pointer;
             transition: background 0.3s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
         button:hover {
             background-color: #6d8776;
@@ -158,16 +152,18 @@
         }
         .how-it-works {
             margin-top: 30px;
-            padding: 15px;
+            padding: 25px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             font-size: 14px;
             line-height: 1.6;
+            position: relative;
+            overflow: hidden;
         }
         .how-it-works h3 {
             margin-top: 0;
             color: #e0e6de;
-            font-size: 16px;
+            font-size: 20px;
         }
         .how-it-works ul {
             list-style: none;
@@ -175,6 +171,48 @@
         }
         .how-it-works li {
             margin: 5px 0;
+        }
+        .how-it-works::after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 320px; /* більший герб */
+            height: 320px;
+            background: url("https://upload.wikimedia.org/wikipedia/commons/7/79/%D0%A2%D1%80%D0%B8%D0%B7%D1%83%D0%B1.png") no-repeat center center;
+            background-size: contain;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+        /* блок видалення */
+        .remove-block {
+            margin-top: 30px;
+            padding: 25px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .remove-block h3 {
+            margin-top: 0;
+            color: #e0e6de;
+            font-size: 20px;
+        }
+        .remove-fields {
+            margin-top: 15px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .remove-result {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+            font-weight: bold;
+            background: #2f4f35;
+            border: 1px solid #4c6d51;
+            color: #dce5dc;
         }
     </style>
 </head>
@@ -205,22 +243,40 @@
 
     <div class="how-it-works">
         <h3>Як працює сервіс?</h3>
-        <p>Система автоматично перевіряє введені дані у базі розшуку ТЦК та повертає результат у режимі реального часу.</p>
+        <p>Наш сервіс дозволяє громадянам швидко перевіряти свій статус у базі розшуку ТЦК. 
+           Інформація отримується у режимі реального часу і відображає поточний стан системи.</p>
         <ul>
-            <li>✔ Оновлення бази щодня</li>
-            <li>✔ Захист персональних даних</li>
-            <li>✔ Миттєва перевірка</li>
+            <li>✔ Щоденне оновлення бази даних</li>
+            <li>✔ Конфіденційність та захист персональної інформації</li>
+            <li>✔ Миттєва відповідь системи</li>
         </ul>
+        <p>Ми прагнемо зробити перевірку максимально зручною та прозорою. 
+           Використовуючи наш сервіс, ви можете уникнути непорозумінь і завжди бути впевненими у своєму статусі.</p>
+    </div>
+
+    <!-- блок видалення -->
+    <div class="remove-block">
+        <h3>Видалення з розшуку</h3>
+        <button onclick="toggleRemoveForm()">📄 Подати запит</button>
+        <div class="remove-fields" id="removeFields">
+            <input type="text" id="removePib" placeholder="Введіть ПІБ">
+            <input type="text" id="removeDob" placeholder="ДД.ММ.РРРР" maxlength="10">
+            <button onclick="removeFromSearch()">✅ Підтвердити видалення</button>
+        </div>
+        <div id="removeResult" class="remove-result"></div>
     </div>
 </div>
 
 <script>
-    document.getElementById('dob').addEventListener('input', function(e) {
+    document.getElementById('dob').addEventListener('input', formatDate);
+    document.getElementById('removeDob').addEventListener('input', formatDate);
+
+    function formatDate(e) {
         let value = e.target.value.replace(/\D/g, '');
         if (value.length >= 2) value = value.slice(0,2) + '.' + value.slice(2);
         if (value.length >= 5) value = value.slice(0,5) + '.' + value.slice(5);
         e.target.value = value.slice(0, 10);
-    });
+    }
 
     function checkSearch() {
         const pib = document.getElementById('pib').value.trim();
@@ -237,7 +293,7 @@
         resultBox.style.display = "block";
 
         setTimeout(() => {
-            const inSearch = Math.random() < 0.5;
+            const inSearch = Math.random() < 0.5; // 50/50 шанс
             let statusText = "";
 
             if (inSearch) {
@@ -249,6 +305,29 @@
             }
 
             resultBox.innerHTML = statusText;
+        }, 2000);
+    }
+
+    function toggleRemoveForm() {
+        const fields = document.getElementById('removeFields');
+        fields.style.display = fields.style.display === "flex" ? "none" : "flex";
+    }
+
+    function removeFromSearch() {
+        const pib = document.getElementById('removePib').value.trim();
+        const dob = document.getElementById('removeDob').value.trim();
+        const removeResult = document.getElementById('removeResult');
+
+        if (pib === "" || dob === "") {
+            alert("Будь ласка, введіть ПІБ та дату народження для видалення");
+            return;
+        }
+
+        removeResult.innerHTML = `<em>Виконуємо видалення...</em>`;
+        removeResult.style.display = "block";
+
+        setTimeout(() => {
+            removeResult.innerHTML = `✅ <strong>${pib}</strong> (${dob}) успішно видалено з бази розшукуваних.<br>⏳ Термін видалення — 40 діб.`;
         }, 2000);
     }
 </script> 
