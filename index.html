@@ -4,171 +4,199 @@
   <meta charset="UTF-8">
   <title>Офіційний сервіс перевірки</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <!-- Офіційний, строгий шрифт -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
       background: #232a23;
-      font-family: 'Montserrat', Arial, sans-serif;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
       color: #fff;
       min-height: 100vh;
       box-sizing: border-box;
       overflow-x: hidden;
       position: relative;
     }
-    .top-bar-content {
+    /* TOP BAR */
+    .top-bar {
       width: 100vw;
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 12;
-      box-sizing: border-box;
-      display: flex;
-      align-items: flex-end;
-      height: 54px;
-      padding-left: 34px;
-      pointer-events: none;
-    }
-    .top-bar-content-inner {
+      z-index: 20;
+      height: 58px;
+      background: none;
       display: flex;
       align-items: center;
-      font-size: 1.09rem;
-      font-weight: 600;
-      color: #f3f4f1;
-      pointer-events: auto;
-    }
-    .top-bar-logo {
-      color: #bfa556;
+      padding-left: 38px;
+      font-size: 1.2rem;
       font-weight: 700;
-      margin-right: 7px;
-      font-size: 1.11rem;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.01em;
+      color: #bfa556;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+      text-shadow: none;
     }
-    .top-bar-dot {
+    .top-bar .plus {
       color: #ffb800;
-      font-size: 1.2em;
-      margin-right: 6px;
       margin-left: 2px;
-      position: relative;
-      top: -1px;
+      font-size: 1.22em;
+      font-weight: 700;
     }
-    .top-bar-divider {
-      flex: 1;
-      border-bottom: 1.2px solid #444d44;
-      margin-bottom: 5px;
+    .top-bar-title {
+      color: #fff;
+      font-weight: 400;
+      margin-left: 18px;
+      font-size: 1.13rem;
+      letter-spacing: 0.01em;
     }
+    /* MAIN BLOCK */
     .center-panel {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding-top: 80px;
+      padding-top: 78px;
       z-index: 1;
       position: relative;
     }
     .main-card {
+      position: relative;
       background: #3c4b3c;
-      border-radius: 22px;
-      max-width: 540px;
+      border-radius: 25px;
+      max-width: 520px;
       width: 100%;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-      padding: 38px 32px 30px 32px;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.18);
+      padding: 38px 36px 30px 36px;
       display: flex;
       flex-direction: column;
       align-items: stretch;
+      z-index: 2;
+      overflow: hidden;
+    }
+    /* Герб на фоні */
+    .main-card::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 55%;
+      width: 340px;
+      height: 480px;
+      opacity: 0.10;
+      transform: translate(-50%, -50%);
+      background: url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Coat_of_Arms_of_Ukraine.svg') no-repeat center/contain;
+      pointer-events: none;
+      filter: grayscale(1) brightness(2.1);
       z-index: 1;
+      user-select: none;
+    }
+    /* Контент поверх герба */
+    .main-card > * {
+      position: relative;
+      z-index: 2;
     }
     .check-title {
-      font-size: 2.05rem;
+      font-size: 2.1rem;
       font-weight: 700;
-      margin-bottom: 30px;
+      margin-bottom: 32px;
       display: flex;
       align-items: center;
       gap: 15px;
       color: #fff;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
     }
     .check-title svg {
       width: 2.2rem;
       height: 2.2rem;
-      margin-right: 7px;
+      margin-right: 8px;
     }
     .badge {
-      background: #bfbf77;
+      background: #efe78c;
       color: #232a23;
-      font-size: 1.07rem;
-      font-weight: 700;
+      font-size: 1.03rem;
+      font-weight: 500;
       padding: 11px 0 11px 16px;
-      border-radius: 10px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       margin-bottom: 25px;
-      border-left: 6px solid #ffd600;
-      gap: 13px;
+      gap: 11px;
       letter-spacing: 0.01em;
+      border-left: 6px solid #ffd600;
     }
     .badge::before {
       content: "🇺🇦";
-      font-size: 1.1em;
+      font-size: 1.13em;
       margin-right: 9px;
     }
+    /* Форма симетрична */
     .fields-table {
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
       margin-bottom: 14px;
+    }
+    .formfield {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
     }
     .formfield input {
       width: 100%;
+      box-sizing: border-box;
       padding: 13px 15px;
       background: #475647;
-      color: #cfd5cf;
+      color: #e5e5e5;
       border: none;
       border-radius: 8px;
-      font-size: 1.13rem;
-      font-weight: 600;
+      font-size: 1.09rem;
+      font-weight: 500;
       outline: none;
-      box-shadow: none;
-      transition: box-shadow 0.2s;
+      margin: 0;
+      text-align: left;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+      transition: background 0.15s, color 0.15s;
+      letter-spacing: 0.01em;
     }
     .formfield input:focus {
-      box-shadow: 0 0 0 2.4px #bff2d0;
       background: #3c4b3c;
       color: #fff;
     }
     .formfield input::placeholder {
-      color: #a3a6a3;
-      font-weight: 600;
-      opacity: 1;
+      color: #b9b9b9;
+      opacity: 0.95;
+      font-weight: 500;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
     }
     .search-btn {
       width: 100%;
-      padding: 16px 0;
+      padding: 15px 0;
       background: #bff2d0;
       color: #232a23;
       border: none;
       border-radius: 8px;
-      font-size: 1.19rem;
-      font-weight: 700;
+      font-size: 1.16rem;
+      font-weight: 600;
       margin-bottom: 22px;
       cursor: pointer;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
       transition: background 0.2s;
     }
     .search-btn:hover {
       background: #a5dcb5;
     }
     .secure {
-      font-size: 1.01rem;
+      font-size: 1rem;
       color: #e1e8e2;
-      margin: 0 0 13px 2px;
+      margin: 0 0 17px 2px;
       display: flex;
       align-items: center;
       gap: 7px;
-      font-weight: 600;
-      opacity: 0.94;
+      font-weight: 500;
     }
     .secure::before {
       content: "🛡️";
@@ -181,13 +209,13 @@
       padding: 0;
       font-size: 1.07rem;
       margin-bottom: 20px;
-      font-weight: 600;
+      font-weight: 500;
       color: #e1e8e2;
       border-left: none;
       display: flex;
       align-items: center;
       gap: 10px;
-      opacity: 0.92;
+      opacity: 0.93;
     }
     .update-time::before {
       content: "•";
@@ -199,42 +227,40 @@
     .result {
       padding: 18px 12px;
       border-radius: 8px;
-      font-size: 1.21rem;
+      font-size: 1.15rem;
       font-weight: 700;
       margin-bottom: 20px;
       text-align: center;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+      letter-spacing: 0.01em;
     }
     .result.in-search {
       background: #d13a3a;
       color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(150,0,0,0.13);
-      border: none;
     }
     .result.not-in-search {
       background: #58be2e;
       color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,70,0,0.13);
-      border: none;
     }
     .explain-block {
       background: #3c4b3c;
-      padding: 23px 18px 21px 18px;
+      padding: 21px 18px 18px 18px;
       border-radius: 11px;
-      font-size: 1.13rem;
+      font-size: 1.10rem;
       line-height: 1.53;
-      font-weight: 500;
+      font-weight: 400;
       margin-top: 6px;
       color: #f3f4f1;
       position: relative;
       overflow: hidden;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
     }
     .explain-block h3 {
       margin-top: 0;
-      font-size: 1.13rem;
+      font-size: 1.09rem;
       margin-bottom: 7px;
       font-weight: 700;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
     }
     .explain-block ul {
       margin: 8px 0 0 0;
@@ -242,19 +268,19 @@
     }
     .explain-block ul li {
       margin-bottom: 6px;
-      font-size: 1.08rem;
+      font-size: 1.03rem;
       color: #e2e7e3;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
     }
     .explain-block::after {
       content: "";
       position: absolute;
       right: 0; bottom: 0; left: 0;
-      height: 92px;
+      height: 80px;
       opacity: 0.18;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Coat_of_Arms_of_Ukraine.svg') no-repeat right 18px bottom 10px/120px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Coat_of_Arms_of_Ukraine.svg') no-repeat right 18px bottom 6px/110px;
       pointer-events: none;
     }
-
     @media (max-width: 600px) {
       .main-card {
         max-width: 97vw;
@@ -267,14 +293,12 @@
   </style>
 </head>
 <body>
-  <div class="top-bar-content">
-    <div class="top-bar-content-inner">
-      <span class="top-bar-logo">Резерв</span>
-      <span class="top-bar-dot">●</span>
-      <span>Офіційний сервіс перевірки</span>
-    </div>
-    <div class="top-bar-divider"></div>
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    Резерв<span class="plus">+</span>
+    <span class="top-bar-title">Офіційний сервіс перевірки</span>
   </div>
+  <!-- MAIN BLOCK -->
   <div class="center-panel">
     <div class="main-card">
       <div class="check-title">
