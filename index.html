@@ -11,28 +11,13 @@
       height: 100%;
       margin: 0;
       padding: 0;
-      background: #132017;
+      background: #232a23;
       font-family: 'Montserrat', Arial, sans-serif;
       color: #fff;
       min-height: 100vh;
       box-sizing: border-box;
       overflow-x: hidden;
       position: relative;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      z-index: 0;
-      top: 55%;
-      left: 50%;
-      width: 520px;
-      height: 700px;
-      opacity: 0.07;
-      transform: translate(-50%, -50%);
-      background: url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Coat_of_Arms_of_Ukraine.svg') no-repeat center/contain;
-      pointer-events: none;
-      filter: grayscale(1) brightness(2.1);
-      user-select: none;
     }
     /* --- TOP BAR --- */
     .top-bar-bg {
@@ -43,7 +28,7 @@
       z-index: 10;
       background: none;
       pointer-events: none;
-      height: 58px;
+      height: 54px;
     }
     .top-bar-content {
       width: 100vw;
@@ -54,7 +39,7 @@
       box-sizing: border-box;
       display: flex;
       align-items: flex-end;
-      height: 58px;
+      height: 54px;
       padding-left: 34px;
       padding-right: 0;
       pointer-events: none;
@@ -62,7 +47,7 @@
     .top-bar-content-inner {
       display: flex;
       align-items: center;
-      font-size: 1.13rem;
+      font-size: 1.09rem;
       font-weight: 600;
       color: #f3f4f1;
       pointer-events: auto;
@@ -71,8 +56,8 @@
       color: #bfa556;
       font-weight: 700;
       margin-right: 7px;
-      font-size: 1.14rem;
-      letter-spacing: 0.04em;
+      font-size: 1.11rem;
+      letter-spacing: 0.03em;
     }
     .top-bar-dot {
       color: #ffb800;
@@ -84,7 +69,7 @@
     }
     .top-bar-divider {
       flex: 1;
-      border-bottom: 1.4px solid #3f473e;
+      border-bottom: 1.2px solid #444d44;
       margin-bottom: 5px;
     }
 
@@ -95,136 +80,198 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding-top: 88px;
+      padding-top: 80px;
       z-index: 1;
       position: relative;
     }
     .main-card {
-      background: #314638;
-      border-radius: 18px;
-      max-width: 520px;
+      background: #3c4b3c;
+      border-radius: 22px;
+      max-width: 540px;
       width: 100%;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.19);
-      padding: 42px 36px 32px 36px; /* трішки більше зверху */
+      box-shadow: 0 8px 32px rgba(0,0,0,0.31);
+      padding: 38px 32px 30px 32px;
       display: flex;
       flex-direction: column;
       align-items: stretch;
       z-index: 1;
     }
     .check-title {
-      font-size: 1.7rem; /* збільшено */
+      font-size: 2.05rem;
       font-weight: 700;
-      margin-bottom: 27px;
+      margin-bottom: 30px;
       display: flex;
       align-items: center;
       gap: 15px;
       color: #fff;
     }
     .check-title svg {
-      width: 2.1rem;
-      height: 2.1rem;
+      width: 2.2rem;
+      height: 2.2rem;
+      margin-right: 7px;
     }
     .badge {
-      background: #a2c7a9;
-      color: #22380f;
-      font-size: 1.04rem;
+      background: #bfbf77;
+      color: #232a23;
+      font-size: 1.07rem;
       font-weight: 700;
       padding: 11px 0 11px 16px;
-      border-radius: 8px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       margin-bottom: 25px;
       border-left: 6px solid #ffd600;
       gap: 13px;
+      letter-spacing: 0.01em;
+    }
+    .badge::before {
+      content: "🇺🇦";
+      font-size: 1.1em;
+      margin-right: 9px;
     }
     .fields-table {
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
       margin-bottom: 14px;
     }
     .formfield input {
       width: 100%;
       padding: 13px 15px;
-      background: transparent;
+      background: #475647;
       color: #fff;
-      border: 2px solid #b5c2b8;
+      border: none;
       border-radius: 8px;
       font-size: 1.13rem;
       font-weight: 600;
+      outline: none;
+      box-shadow: 0 0 0 1.2px #5b685b;
+      transition: box-shadow 0.2s;
     }
     .formfield input:focus {
-      border: 2px solid #90f3a3;
-      background: #203524;
-    }
-    .hint {
-      font-size: 1rem;
-      color: #e1e8e2;
-      margin-top: 6px;
+      box-shadow: 0 0 0 2.4px #bff2d0;
+      background: #3c4b3c;
     }
     .search-btn {
       width: 100%;
-      padding: 15px 0;
+      padding: 16px 0;
       background: #bff2d0;
-      color: #16351b;
+      color: #232a23;
       border: none;
       border-radius: 8px;
       font-size: 1.19rem;
       font-weight: 700;
       margin-bottom: 22px;
       cursor: pointer;
+      transition: background 0.2s;
     }
     .search-btn:hover {
       background: #a5dcb5;
     }
     .secure {
-      font-size: 1.04rem;
-      color: #d2d8d6;
-      margin: 0 0 17px 2px;
+      font-size: 1.01rem;
+      color: #e1e8e2;
+      margin: 0 0 13px 2px;
       display: flex;
       align-items: center;
       gap: 7px;
       font-weight: 600;
+      opacity: 0.94;
+    }
+    .secure::before {
+      content: "🛡️";
+      font-size: 1.05em;
+      margin-right: 6px;
     }
     .update-time {
-      background: #465d4e;
+      background: none;
       border-radius: 8px;
-      padding: 10px 0 10px 14px;
-      font-size: 1.09rem;
-      margin-bottom: 22px;
+      padding: 0;
+      font-size: 1.07rem;
+      margin-bottom: 20px;
       font-weight: 600;
-      border-left: 4px solid #bff2d0;
+      color: #e1e8e2;
+      border-left: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.92;
+    }
+    .update-time::before {
+      content: "•";
+      color: #bff2d0;
+      font-size: 1.15rem;
+      margin-right: 7px;
+      margin-left: 0;
     }
     .result {
-      padding: 20px 12px; /* трішки більші відступи */
+      padding: 18px 12px;
       border-radius: 8px;
-      font-size: 1.25rem; /* збільшено */
+      font-size: 1.21rem;
       font-weight: 700;
-      margin-bottom: 21px;
+      margin-bottom: 20px;
       text-align: center;
     }
     .result.in-search {
-      background: #cc3026; /* темніший червоний */
+      background: #d13a3a;
       color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(150,0,0,0.13);
+      border: none;
     }
     .result.not-in-search {
       background: #58be2e;
       color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,70,0,0.13);
+      border: none;
     }
     .explain-block {
-      background: #405b48;
+      background: #3c4b3c;
       padding: 23px 18px 21px 18px;
       border-radius: 11px;
       font-size: 1.13rem;
       line-height: 1.53;
       font-weight: 500;
+      margin-top: 6px;
+      color: #f3f4f1;
+      position: relative;
+      overflow: hidden;
     }
     .explain-block h3 {
       margin-top: 0;
       font-size: 1.13rem;
       margin-bottom: 7px;
       font-weight: 700;
+    }
+    .explain-block ul {
+      margin: 8px 0 0 0;
+      padding-left: 18px;
+    }
+    .explain-block ul li {
+      margin-bottom: 6px;
+      font-size: 1.08rem;
+      color: #e2e7e3;
+    }
+    .explain-block::after {
+      content: "";
+      position: absolute;
+      right: 0; bottom: 0; left: 0;
+      height: 92px;
+      opacity: 0.18;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Coat_of_Arms_of_Ukraine.svg') no-repeat right 18px bottom 10px/120px;
+      pointer-events: none;
+    }
+
+    @media (max-width: 600px) {
+      .main-card {
+        max-width: 97vw;
+        padding: 22px 7vw 20px 7vw;
+      }
+      .check-title {
+        font-size: 1.29rem;
+      }
     }
   </style>
 </head>
@@ -253,11 +300,10 @@
       <form id="searchForm" autocomplete="off">
         <div class="fields-table">
           <div class="formfield">
-            <input type="text" id="pib" placeholder="ПІБ" required>
+            <input type="text" id="pib" placeholder="Олемський Максим Олександрович" required>
           </div>
           <div class="formfield">
-            <input type="text" id="dob" placeholder="Дата народження" maxlength="10" inputmode="numeric" required>
-            <div class="hint">Виберіть потрібний формат: ДД.ММ.РРРР</div>
+            <input type="text" id="dob" placeholder="11.02.1998" maxlength="10" inputmode="numeric" required>
           </div>
         </div>
         <button type="submit" class="search-btn">Перевірити</button>
@@ -276,7 +322,6 @@
       </div>
     </div>
   </div>
-
   <script>
     // автоформат для дати
     const dobInput = document.getElementById('dob');
