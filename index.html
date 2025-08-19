@@ -62,12 +62,9 @@
     .top-bar-content-inner {
       display: flex;
       align-items: center;
-      font-family: 'Montserrat', Arial, sans-serif;
       font-size: 1.13rem;
       font-weight: 600;
-      letter-spacing: 0.01em;
       color: #f3f4f1;
-      background: none;
       pointer-events: auto;
     }
     .top-bar-logo {
@@ -82,21 +79,13 @@
       font-size: 1.2em;
       margin-right: 6px;
       margin-left: 2px;
-      vertical-align: middle;
       position: relative;
       top: -1px;
     }
     .top-bar-divider {
       flex: 1;
       border-bottom: 1.4px solid #3f473e;
-      margin-left: 0;
       margin-bottom: 5px;
-      margin-right: 0;
-    }
-    @media (max-width: 600px) {
-      .top-bar-content { font-size: 0.98rem; padding-left: 3vw; height: 45px;}
-      .top-bar-bg, .top-bar-content { height: 45px; }
-      .main-card { margin-top: 10vw !important;}
     }
 
     /* --- MAIN BLOCK --- */
@@ -116,28 +105,24 @@
       max-width: 520px;
       width: 100%;
       box-shadow: 0 8px 32px rgba(0,0,0,0.19);
-      padding: 36px 36px 28px 36px;
+      padding: 42px 36px 32px 36px; /* трішки більше зверху */
       display: flex;
       flex-direction: column;
       align-items: stretch;
       z-index: 1;
-      border: none;
     }
     .check-title {
-      font-size: 1.65rem;
+      font-size: 1.7rem; /* збільшено */
       font-weight: 700;
       margin-bottom: 27px;
       display: flex;
       align-items: center;
       gap: 15px;
       color: #fff;
-      letter-spacing: 0.01em;
-      justify-content: flex-start;
     }
     .check-title svg {
       width: 2.1rem;
       height: 2.1rem;
-      flex-shrink: 0;
     }
     .badge {
       background: #a2c7a9;
@@ -151,13 +136,6 @@
       margin-bottom: 25px;
       border-left: 6px solid #ffd600;
       gap: 13px;
-      letter-spacing: 0.01em;
-    }
-    .badge svg {
-      width: 1.1em;
-      height: 1.1em;
-      color: #ffd600;
-      margin-right: 6px;
     }
     .fields-table {
       width: 100%;
@@ -168,7 +146,6 @@
     }
     .formfield input {
       width: 100%;
-      box-sizing: border-box;
       padding: 13px 15px;
       background: transparent;
       color: #fff;
@@ -176,165 +153,84 @@
       border-radius: 8px;
       font-size: 1.13rem;
       font-weight: 600;
-      letter-spacing: 0.015em;
-      outline: none;
-      box-shadow: none;
-      transition: border 0.17s, background 0.17s;
-      font-family: 'Montserrat', Arial, sans-serif;
-      margin-bottom: 0;
     }
     .formfield input:focus {
       border: 2px solid #90f3a3;
       background: #203524;
     }
-    .formfield input::placeholder {
-      color: #c2d2c2;
-      opacity: 1;
-      font-family: 'Montserrat', Arial, sans-serif;
-      font-size: 1.13rem;
-      font-weight: 600;
-      letter-spacing: 0.015em;
-    }
-    .formfield {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-    }
-    .formfield label {
-      display: none;
-    }
-    .formfield .hint {
-      font-size: 1.01rem;
+    .hint {
+      font-size: 1rem;
       color: #e1e8e2;
-      margin-top: 8px;
-      margin-left: 2px;
-      margin-bottom: 1px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
+      margin-top: 6px;
     }
     .search-btn {
       width: 100%;
-      padding: 15px 0 15px 0;
+      padding: 15px 0;
       background: #bff2d0;
       color: #16351b;
       border: none;
       border-radius: 8px;
       font-size: 1.19rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
       margin-bottom: 22px;
       cursor: pointer;
-      box-shadow: none;
-      transition: background 0.18s, color 0.15s;
-      text-transform: none;
-      font-family: 'Montserrat', Arial, sans-serif;
-      text-align: center;
-      display: block;
     }
     .search-btn:hover {
       background: #a5dcb5;
-      color: #17211b;
     }
     .secure {
       font-size: 1.04rem;
       color: #d2d8d6;
-      text-align: left;
       margin: 0 0 17px 2px;
       display: flex;
       align-items: center;
       gap: 7px;
       font-weight: 600;
     }
-    .secure svg {
-      width: 1.12em;
-      height: 1.12em;
-      color: #b2e3c2;
-    }
     .update-time {
       background: #465d4e;
-      color: #fff;
       border-radius: 8px;
       padding: 10px 0 10px 14px;
       font-size: 1.09rem;
       margin-bottom: 22px;
-      margin-top: 2px;
       font-weight: 600;
       border-left: 4px solid #bff2d0;
-      letter-spacing: 0.01em;
     }
     .result {
-      padding: 17px 10px;
+      padding: 20px 12px; /* трішки більші відступи */
       border-radius: 8px;
-      font-size: 1.13rem;
+      font-size: 1.25rem; /* збільшено */
       font-weight: 700;
       margin-bottom: 21px;
-      margin-top: 2px;
       text-align: center;
-      letter-spacing: 0.01em;
-      border: none;
-      font-family: 'Montserrat', Arial, sans-serif;
-      word-break: break-word;
-      box-sizing: border-box;
-      transition: background 0.15s, color 0.15s;
     }
     .result.in-search {
-      background: #df392e;
+      background: #cc3026; /* темніший червоний */
       color: #fff;
-      border: none;
     }
     .result.not-in-search {
       background: #58be2e;
       color: #fff;
-      border: none;
     }
     .explain-block {
       background: #405b48;
       padding: 23px 18px 21px 18px;
       border-radius: 11px;
       font-size: 1.13rem;
-      margin-top: 10px;
-      color: #fff;
       line-height: 1.53;
-      letter-spacing: 0.005em;
-      font-family: 'Montserrat', Arial, sans-serif;
       font-weight: 500;
-      position: relative;
-      z-index: 2;
     }
     .explain-block h3 {
       margin-top: 0;
       font-size: 1.13rem;
-      color: #fff;
       margin-bottom: 7px;
       font-weight: 700;
-      letter-spacing: 0.01em;
-    }
-    .explain-block ul {
-      padding-left: 19px;
-      margin-bottom: 0;
-      color: #fff;
-      margin-top: 8px;
-    }
-    .explain-block li {
-      margin: 0 0 2px 0;
-      font-size: 1.09rem;
-      letter-spacing: 0.01em;
-      font-family: 'Montserrat', Arial, sans-serif;
-    }
-    @media (max-width: 700px) {
-      .main-card { max-width: 98vw; padding: 6vw 2vw 4vw 2vw; }
-      .center-panel { padding-top: 11vw; }
-      .top-bar-content, .top-bar-bg { height: 48px; }
-      body::before { width: 90vw; }
     }
   </style>
 </head>
 <body>
   <!-- TOP BAR -->
-  <div class="top-bar-bg">
-    <div class="top-bar-divider"></div>
-  </div>
+  <div class="top-bar-bg"><div class="top-bar-divider"></div></div>
   <div class="top-bar-content">
     <div class="top-bar-content-inner">
       <span class="top-bar-logo">Резерв</span>
@@ -343,6 +239,7 @@
     </div>
     <div class="top-bar-divider"></div>
   </div>
+
   <!-- MAIN BLOCK -->
   <div class="center-panel">
     <div class="main-card">
@@ -351,28 +248,22 @@
         Перевірка розшуку у ТЦК
       </div>
       <div class="badge">
-        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 2L2 5.5v4.7C2 15.6 10 19 10 19s8-3.4 8-8.8V5.5L10 2zM10 16.77c-2.41-1.11-6-3.22-6-6.57V6.32l6-2.61 6 2.61v3.88c0 3.35-3.59 5.46-6 6.57z"/><path d="M10 8.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0 1c-1.38 0-2.5 1.12-2.5 2.5S8.62 14.5 10 14.5s2.5-1.12 2.5-2.5S11.38 9.5 10 9.5z"/></svg>
         Інтегровано з офіційною Базою даних ТЦК
       </div>
-      <form id="searchForm" autocomplete="off" style="margin-bottom:0;">
+      <form id="searchForm" autocomplete="off">
         <div class="fields-table">
           <div class="formfield">
-            <input type="text" id="pib" name="pib" placeholder="ПІБ" autocomplete="off" required>
+            <input type="text" id="pib" placeholder="ПІБ" required>
           </div>
           <div class="formfield">
-            <input type="text" id="dob" name="dob" placeholder="Дата народження" maxlength="10" inputmode="numeric" pattern="[0-9.]*" required>
+            <input type="text" id="dob" placeholder="Дата народження" maxlength="10" inputmode="numeric" required>
             <div class="hint">Виберіть потрібний формат: ДД.ММ.РРРР</div>
           </div>
         </div>
         <button type="submit" class="search-btn">Перевірити</button>
       </form>
-      <div class="secure">
-        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a4 4 0 0 0-4 4v2H5a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3h-1V6a4 4 0 0 0-4-4zm-2 4a2 2 0 1 1 4 0v2h-4V6zm-3 5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6z"/></svg>
-        Дані передаються через захищене з'єднання
-      </div>
-      <div class="update-time">
-        Останнє оновлення 17.08.2025 [13:21]
-      </div>
+      <div class="secure">Дані передаються через захищене з'єднання</div>
+      <div class="update-time">Останнє оновлення 17.08.2025 [13:21]</div>
       <div id="searchResult"></div>
       <div class="explain-block">
         <h3>Як працює сервіс?</h3>
@@ -385,11 +276,12 @@
       </div>
     </div>
   </div>
+
   <script>
-    // Автоматичне підставлення крапок у даті
+    // автоформат для дати
     const dobInput = document.getElementById('dob');
-    dobInput.addEventListener('input', function(e) {
-      let val = dobInput.value.replace(/\D/g, ''); // Тільки цифри
+    dobInput.addEventListener('input', function() {
+      let val = dobInput.value.replace(/\D/g, '');
       if (val.length > 8) val = val.substr(0,8);
       let newVal = '';
       if (val.length >= 1) newVal += val.substr(0,2);
@@ -398,40 +290,15 @@
       dobInput.value = newVal;
     });
 
-    // Перевірка результату 60/40
-    const demoNames = [
-      "Лещенко Дмитро Олександрович",
-      "Сидоренко Іван Васильович",
-      "Коваленко Олег Вікторович",
-      "Мельник Олександр Петрович",
-      "Мартиненко Максим Володимирович",
-      "Свідерський Артур Дмитрович",
-      "Олемський Максим Олександрович"
-    ];
-    const demoDates = [
-      "31.01.1999", "15.05.1987", "09.09.1975", "27.12.2001", "12.09.1998", "06.01.2006", "11.02.1998"
-    ];
+    const demoNames = ["Олемський Максим Олександрович"];
+    const demoDates = ["11.02.1998"];
     const searchResult = document.getElementById('searchResult');
+
     document.getElementById('searchForm').onsubmit = function(e) {
       e.preventDefault();
       const pib = document.getElementById('pib').value.trim();
       const dob = document.getElementById('dob').value.trim();
-      if (!pib || !dob) {
-        searchResult.innerHTML = '';
-        return;
-      }
-      let inSearch = Math.random() < 0.6;
-      for (let i = 0; i < demoNames.length; ++i) {
-        if (
-          pib.toLowerCase() === demoNames[i].toLowerCase() &&
-          dob === demoDates[i]
-        ) {
-          // На фото цей ПІБ перебуває у розшуку
-          inSearch = true;
-          break;
-        }
-      }
-      if (inSearch) {
+      if (pib.toLowerCase() === demoNames[0].toLowerCase() && dob === demoDates[0]) {
         searchResult.innerHTML = `<div class="result in-search">${pib} (${dob}) — <b>ЗНАХОДИТЬСЯ У РОЗШУКУ</b></div>`;
       } else {
         searchResult.innerHTML = `<div class="result not-in-search">${pib} (${dob}) — <b>Не перебуває у розшуку</b></div>`;
