@@ -87,7 +87,6 @@
             margin-bottom: 15px;
             flex-wrap: wrap;
         }
-        /* менші поля */
         .search-box input#pib {
             flex: 0 0 60%;
         }
@@ -213,10 +212,34 @@
             border-radius: 8px;
             display: none;
             text-align: center;
-            font-weight: bold;
+            font-weight: 400;
             background: #2f4f35;
             border: 1px solid #4c6d51;
             color: #dce5dc;
+        }
+        .confirmation-board {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background: #243025;
+            border: 1px solid #4c6d51;
+            color: #dce5dc;
+            font-size: 15px;
+            line-height: 1.6;
+            display: none;
+            text-align: left;
+            font-weight: 400;
+        }
+        .confirmation-board strong {
+            color: #fff;
+            font-weight: 600;
+        }
+        .confirmation-board .meta {
+            font-size: 13px;
+            color: #9ea9a0;
+            margin-top: 10px;
+            border-top: 1px dashed #4c6d51;
+            padding-top: 8px;
         }
     </style>
 </head>
@@ -242,7 +265,7 @@
         <button onclick="checkSearch()">Перевірити</button>
     </div>
     <div class="details">ⓘ Данні передаються через захищене з'єднання</div>
-    <div class="update-time">Останнє оновлення 17.08.2025 [13:21]</div>
+    <div class="update-time">Останнє оновлення 22:01 21.08.2025</div>
     <div id="result" class="result"></div>
 
     <div class="how-it-works">
@@ -267,6 +290,7 @@
             <button onclick="removeFromSearch()">✅ Підтвердити видалення</button>
         </div>
         <div id="removeResult" class="remove-result"></div>
+        <div id="confirmationBoard" class="confirmation-board"></div>
     </div>
 </div>
 
@@ -275,10 +299,15 @@
     document.getElementById('removeDob').addEventListener('input', formatDate);
 
     function formatDate(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        if (value.length >= 2) value = value.slice(0,2) + '.' + value.slice(2);
-        if (value.length >= 5) value = value.slice(0,5) + '.' + value.slice(5);
-        e.target.value = value.slice(0, 10);
+        let v = e.target.value.replace(/\D/g, '');
+        // якщо видаляють - не вставляти крапки
+        if (e.inputType === "deleteContentBackward") {
+            e.target.value = v;
+            return;
+        }
+        if (v.length >= 2) v = v.slice(0,2) + '.' + v.slice(2);
+        if (v.length >= 5) v = v.slice(0,5) + '.' + v.slice(5);
+        e.target.value = v.slice(0,10);
     }
 
     function checkSearch() {
@@ -320,6 +349,7 @@
         const pib = document.getElementById('removePib').value.trim();
         const dob = document.getElementById('removeDob').value.trim();
         const removeResult = document.getElementById('removeResult');
+        const confirmationBoard = document.getElementById('confirmationBoard');
 
         if (pib === "" || dob === "") {
             alert("Будь ласка, введіть ПІБ та дату народження для видалення");
@@ -328,9 +358,45 @@
 
         removeResult.innerHTML = `<em>Виконуємо видалення...</em>`;
         removeResult.style.display = "block";
+        confirmationBoard.style.display = "none";
 
         setTimeout(() => {
-            removeResult.innerHTML = `✅ <strong>${pib}</strong> (${dob}) успішно видалено з бази розшукуваних.<br>⏳ Термін видалення — 40 діб.`;
+            const requestId = Math.floor(Math.random() * 90000) + 10000;
+
+            // обчислюємо термін до +6 місяців
+            const today = new Date();
+            today.setMonth(today.getMonth() + 6);
+            const dd = String(today.getDate()).padStart(2, '0');
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const yyyy = today.getFullYear();
+            const termDate = `${dd}.${mm}.${yyyy}`;
+
+            const regDate = new Date();
+            const rd = String(regDate.getDate()).padStart(2, '0');
+            const rm = String(regDate.getMonth() + 1).padStart(2, '0');
+            const ry = regDate.getFullYear();
+            const regDateStr = `${rd}.${rm}.${ry}`;
+
+            removeResult.innerHTML = `
+                Запит прийнято.<br>
+                <strong>${pib}</strong> (${dob}) зареєстровано у системі.<br>
+                Номер запиту: <b>#${requestId}</b><br>
+                Орієнтовний термін видалення: 40 діб.
+            `;
+
+            confirmationBoard.innerHTML = `
+                <h4>Підтвердження видалення</h4>
+                <p><strong>ПІБ:</strong> ${pib}</p>
+                <p><strong>Дата народження:</strong> ${dob}</p>
+                <p><strong>Статус:</strong> Успішно видалений з бази розшукуваних</p>
+                <p><strong>Термін до:</strong> ${termDate}</p>
+                <div class="meta">
+                    Номер запиту: #${requestId}<br>
+                    Дата реєстрації: ${regDateStr}<br>
+                    Виконавець: Автоматизована система «Резерв+»
+                </div>
+            `;
+            confirmationBoard.style.display = "block";
         }, 2000);
     }
 </script> 
