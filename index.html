@@ -1,404 +1,233 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Перевірка розшуку у ТЦК</title>
-    <style>
-        body {
-            font-family: "Segoe UI", Tahoma, sans-serif;
-            background: linear-gradient(135deg, #1f2520, #111613);
-            margin: 0;
-            padding: 0;
-            color: #fff;
-        }
-        header {
-            background: #1f2520;
-            color: white;
-            padding: 12px 14px;
-            border-bottom: 3px solid #3a453c;
-        }
-        .brand {
-            max-width: 980px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .brand img.logo {
-            height: 60px;
-            width: auto;
-            display: block;
-            filter: drop-shadow(0 1px 0 rgba(0,0,0,.25));
-        }
-        .brand .title {
-            font-weight: 700;
-            letter-spacing: .2px;
-        }
-        .container {
-            max-width: 650px;
-            margin: 40px auto;
-            background: #2a322c;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
-            position: relative;
-            overflow: hidden;
-        }
-        h1 {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 28px;
-            color: #e0e6de;
-            margin-bottom: 15px;
-            margin-left: 5px;
-            text-align: left;
-            justify-content: flex-start;
-        }
-        h1 img {
-            height: 36px;
-            width: auto;
-        }
-        .subtitle {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 8px;
-            text-align: left;
-            font-size: 15px;
-            color: #fff;
-            background: rgba(140, 164, 142, 0.15);
-            border-left: 4px solid #8ca48e;
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            font-weight: bold;
-            margin-left: 5px;
-        }
-        .subtitle img.mini-logo {
-            height: 21px;
-            width: auto;
-            opacity: .9;
-        }
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-        .search-box input#pib {
-            flex: 0 0 60%;
-        }
-        .search-box input#dob {
-            flex: 0 0 35%;
-        }
-        input {
-            padding: 10px;
-            border: 1px solid #5e6a62;
-            border-radius: 8px;
-            font-size: 15px;
-            background: #353e37;
-            color: white;
-        }
-        input::placeholder {
-            color: #a8b2a8;
-        }
-        button {
-            padding: 10px 14px;
-            background-color: #556b5d;
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-        button:hover {
-            background-color: #6d8776;
-            transform: translateY(-1px);
-        }
-        .details {
-            font-size: 13px;
-            color: #aeb7ad;
-            margin-top: 5px;
-            text-align: center;
-        }
-        .update-time {
-            font-size: 13px;
-            color: #aeb7ad;
-            margin-top: 4px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .result {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 8px;
-            display: none;
-            font-weight: bold;
-            text-align: center;
-        }
-        .status-ok {
-            background-color: #2f4f35;
-            border: 1px solid #4c6d51;
-            color: #dce5dc;
-        }
-        .status-alert {
-            background-color: #4f2f2f;
-            border: 1px solid #6e4c5b;
-            color: #f3d9d9;
-        }
-        .how-it-works {
-            margin-top: 30px;
-            padding: 25px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            font-size: 14px;
-            line-height: 1.6;
-            position: relative;
-            overflow: hidden;
-        }
-        .how-it-works h3 {
-            margin-top: 0;
-            color: #e0e6de;
-            font-size: 20px;
-        }
-        .how-it-works ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        .how-it-works li {
-            margin: 5px 0;
-        }
-        .how-it-works::after {
-            content: "";
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 320px;
-            height: 320px;
-            background: url("https://upload.wikimedia.org/wikipedia/commons/7/79/%D0%A2%D1%80%D0%B8%D0%B7%D1%83%D0%B1.png") no-repeat center center;
-            background-size: contain;
-            opacity: 0.08;
-            pointer-events: none;
-        }
-        .remove-block {
-            margin-top: 30px;
-            padding: 25px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-            text-align: center;
-        }
-        .remove-block h3 {
-            margin-top: 0;
-            color: #e0e6de;
-            font-size: 20px;
-        }
-        .remove-fields {
-            margin-top: 15px;
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .remove-result {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 8px;
-            display: none;
-            text-align: center;
-            font-weight: 400;
-            background: #2f4f35;
-            border: 1px solid #4c6d51;
-            color: #dce5dc;
-        }
-        .confirmation-board {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 10px;
-            background: #243025;
-            border: 1px solid #4c6d51;
-            color: #dce5dc;
-            font-size: 15px;
-            line-height: 1.6;
-            display: none;
-            text-align: left;
-            font-weight: 400;
-        }
-        .confirmation-board strong {
-            color: #fff;
-            font-weight: 600;
-        }
-        .confirmation-board .meta {
-            font-size: 13px;
-            color: #9ea9a0;
-            margin-top: 10px;
-            border-top: 1px dashed #4c6d51;
-            padding-top: 8px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Перевірка розшуку у ТЦК</title>
+  <style>
+    body { font-family: "Segoe UI", Tahoma, sans-serif; background: linear-gradient(135deg, #1f2520, #111613); margin: 0; padding: 0; color: #fff; }
+    header { background: #1f2520; color: white; padding: 12px 14px; border-bottom: 3px solid #3a453c; }
+    .brand { max-width: 980px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+    .brand img.logo { height: 60px; width: auto; display: block; filter: drop-shadow(0 1px 0 rgba(0,0,0,.25)); }
+    .brand .title { font-weight: 700; letter-spacing: .2px; }
+    .container { max-width: 650px; margin: 40px auto; background: #2a322c; padding: 30px; border-radius: 12px; box-shadow: 0 6px 25px rgba(0,0,0,0.4); position: relative; overflow: hidden; }
+    h1 { display: flex; align-items: center; gap: 8px; font-size: 28px; color: #e0e6de; margin-bottom: 15px; margin-left: 5px; text-align: left; justify-content: flex-start; }
+    h1 img { height: 36px; width: auto; }
+    .subtitle { display: flex; align-items: center; justify-content: flex-start; gap: 8px; text-align: left; font-size: 15px; color: #fff; background: rgba(140, 164, 142, 0.15); border-left: 4px solid #8ca48e; padding: 8px 12px; border-radius: 6px; margin-bottom: 20px; font-weight: bold; margin-left: 5px; }
+    .subtitle img.mini-logo { height: 21px; width: auto; opacity: .9; }
+    .search-box { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+    .search-box input#pib { flex: 0 0 60%; }
+    .search-box input#dob { flex: 0 0 35%; }
+    input { padding: 10px; border: 1px solid #5e6a62; border-radius: 8px; font-size: 15px; background: #353e37; color: white; }
+    input::placeholder { color: #a8b2a8; }
+    button { padding: 10px 14px; background-color: #556b5d; color: white; font-weight: bold; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; transition: background 0.3s, transform 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+    button:hover { background-color: #6d8776; transform: translateY(-1px); }
+    button[disabled] { opacity: .55; cursor: not-allowed; }
+    .details, .update-time { font-size: 13px; color: #aeb7ad; text-align: center; }
+    .details { margin-top: 5px; }
+    .update-time { margin-top: 4px; margin-bottom: 15px; }
+    .result { margin-top: 20px; padding: 15px; border-radius: 8px; display: none; font-weight: bold; text-align: center; }
+    .status-ok { background-color: #2f4f35; border: 1px solid #4c6d51; color: #dce5dc; }
+    .status-alert { background-color: #4f2f2f; border: 1px solid #6e4c6b; color: #f3d9d9; }
+    .how-it-works { margin-top: 30px; padding: 25px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; font-size: 14px; line-height: 1.6; position: relative; overflow: hidden; }
+    .how-it-works h3 { margin-top: 0; color: #e0e6de; font-size: 20px; }
+    .how-it-works ul { list-style: none; padding-left: 0; }
+    .how-it-works li { margin: 5px 0; }
+    .how-it-works::after { content: ""; position: absolute; top: 20px; right: 20px; width: 320px; height: 320px; background: url("https://upload.wikimedia.org/wikipedia/commons/7/79/%D0%A2%D1%80%D0%B8%D0%B7%D1%83%D0%B1.png") no-repeat center center; background-size: contain; opacity: 0.08; pointer-events: none; }
+    .remove-block { margin-top: 30px; padding: 25px; background: rgba(255,255,255,0.05); border-radius: 10px; text-align: center; }
+    .remove-block h3 { margin-top: 0; color: #e0e6de; font-size: 20px; }
+    .remove-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .remove-actions .icon { width: 20px; height: 20px; display: inline-block; flex: 0 0 auto; }
+    .remove-fields { margin-top: 15px; display: none; flex-direction: column; gap: 10px; }
+    .remove-result { margin-top: 15px; padding: 12px; border-radius: 8px; display: none; text-align: center; font-weight: 400; background: #2f4f35; border: 1px solid #4c6d51; color: #dce5dc; }
+    .confirmation-board { margin-top: 20px; padding: 20px; border-radius: 10px; background: #243025; border: 1px solid #4c6d51; color: #dce5dc; font-size: 15px; line-height: 1.6; display: none; text-align: left; font-weight: 400; }
+    .confirmation-board strong { color: #fff; font-weight: 600; }
+    .confirmation-board .meta { font-size: 13px; color: #9ea9a0; margin-top: 10px; border-top: 1px dashed #4c6d51; padding-top: 8px; }
+  </style>
 </head>
 <body>
-<header aria-label="Шапка сайту">
+  <header aria-label="Шапка сайту">
     <div class="brand" role="banner">
-        <img class="logo" src="https://upload.wikimedia.org/wikipedia/uk/0/01/Reserve-plus-logo.png" alt="Тризуб України" />
-        <span class="title">Офіційний сервіс перевірки</span>
+      <img class="logo" src="https://upload.wikimedia.org/wikipedia/uk/0/01/Reserve-plus-logo.png" alt="Тризуб України"/>
+      <span class="title">Офіційний сервіс перевірки</span>
     </div>
-</header>
-<div class="container">
+  </header>
+
+  <div class="container">
     <h1>
-        <img src="https://cdn-icons-png.flaticon.com/512/46/46890.png" alt="Іконка">
-        Перевірка розшуку у ТЦК
+      <img src="https://cdn-icons-png.flaticon.com/512/46/46890.png" alt="Іконка"> Перевірка розшуку у ТЦК
     </h1>
     <div class="subtitle">
-        <img class="mini-logo" src="https://upload.wikimedia.org/wikipedia/commons/7/79/%D0%A2%D1%80%D0%B8%D0%B7%D1%83%D0%B1.png" alt="Тризуб" />
-         Інтегровано з офіційною Базою данних ТЦК
+      <img class="mini-logo" src="https://upload.wikimedia.org/wikipedia/commons/7/79/%D0%A2%D1%80%D0%B8%D0%B7%D1%83%D0%B1.png" alt="Тризуб"/>
+      Інтегровано з офіційною базою даних ТЦК
     </div>
+
     <div class="search-box">
-        <input type="text" id="pib" placeholder="Введіть ПІБ">
-        <input type="text" id="dob" placeholder="ДД.ММ.РРРР" maxlength="10">
-        <button onclick="checkSearch()">Перевірити</button>
+      <input type="text" id="pib" placeholder="Введіть ПІБ">
+      <input type="text" id="dob" placeholder="ДД.ММ.РРРР" maxlength="10">
+      <button onclick="checkSearch()">Перевірити</button>
     </div>
-    <div class="details">ⓘ Данні передаються через захищене з'єднання</div>
+
+    <div class="details">ⓘ Дані передаються через захищене з'єднання</div>
     <div class="update-time">Останнє оновлення 22:01 21.08.2025</div>
+
     <div id="result" class="result"></div>
 
     <div class="how-it-works">
-        <h3>Як працює сервіс?</h3>
-        <p>Сервіс дозволяє швидко перевіряти статус особи у базі розшуку ТЦК. 
-           Інформація отримується у режимі реального часу і відображає поточний стан системи.</p>
-        <ul>
-            <li>✔ Щоденне оновлення бази даних</li>
-            <li>✔ Конфіденційність та захист персональної інформації</li>
-            <li>✔ Миттєва відповідь системи</li>
-        </ul>
-        <p>Ми прагнемо зробити перевірку максимально зручною та прозорою. 
-           Використовуючи наш сервіс, ви можете уникнути непорозумінь і завжди бути впевненими у своєму статусі.</p>
+      <h3>Як працює сервіс?</h3>
+      <p>Сервіс дозволяє швидко перевіряти статус особи у базі розшуку ТЦК. Інформація отримується у режимі реального часу і відображає поточний стан системи.</p>
+      <ul>
+        <li>✔ Щоденне оновлення бази даних</li>
+        <li>✔ Конфіденційність та захист персональної інформації</li>
+        <li>✔ Миттєва відповідь системи</li>
+      </ul>
+      <p>Ми прагнемо зробити перевірку максимально зручною та прозорою. Використовуючи наш сервіс, ви можете уникнути непорозумінь і завжди бути впевненими у своєму статусі.</p>
     </div>
 
     <div class="remove-block">
-        <h3>Видалення з розшуку</h3>
-        <button onclick="toggleRemoveForm()">📄 Подати запит</button>
-        <div class="remove-fields" id="removeFields">
-            <input type="text" id="removePib" placeholder="Введіть ПІБ">
-            <input type="text" id="removeDob" placeholder="ДД.ММ.РРРР" maxlength="10">
-            <button onclick="removeFromSearch()">✅ Підтвердити видалення</button>
-        </div>
-        <div id="removeResult" class="remove-result"></div>
-        <div id="confirmationBoard" class="confirmation-board"></div>
-    </div>
-</div>
+      <h3>Видалення особи</h3>
+      <div class="remove-actions">
+        <!-- Подати запит -->
+        <button onclick="toggleRemoveForm()" aria-label="Подати запит">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Подати запит
+        </button>
 
-<script>
+        <!-- Перевірити статус запиту -->
+        <button onclick="comingSoon()" aria-label="Перевірити статус запиту" title="Незабаром">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          Перевірити статус запиту
+        </button>
+
+        <!-- Історія -->
+        <button onclick="comingSoon()" aria-label="Історія" title="Незабаром">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          Історія
+        </button>
+      </div>
+
+      <!-- Форма для видалення -->
+      <div class="remove-fields" id="removeFields">
+        <input type="text" id="removePib" placeholder="Введіть ПІБ">
+        <input type="text" id="removeDob" placeholder="ДД.ММ.РРРР" maxlength="10">
+        <button onclick="removeFromSearch()">✅ Підтвердити видалення</button>
+      </div>
+      <div id="removeResult" class="remove-result"></div>
+      <div id="confirmationBoard" class="confirmation-board"></div>
+    </div>
+  </div>
+
+  <script>
+    // Маска дати
+    function formatDate(e) {
+      let v = e.target.value.replace(/\D/g, '');
+      if (e.inputType === "deleteContentBackward") {
+        e.target.value = v;
+        return;
+      }
+      if (v.length >= 2) v = v.slice(0,2) + '.' + v.slice(2);
+      if (v.length >= 5) v = v.slice(0,5) + '.' + v.slice(5);
+      e.target.value = v.slice(0,10);
+    }
+
     document.getElementById('dob').addEventListener('input', formatDate);
     document.getElementById('removeDob').addEventListener('input', formatDate);
 
-    function formatDate(e) {
-        let v = e.target.value.replace(/\D/g, '');
-        // якщо видаляють - не вставляти крапки
-        if (e.inputType === "deleteContentBackward") {
-            e.target.value = v;
-            return;
-        }
-        if (v.length >= 2) v = v.slice(0,2) + '.' + v.slice(2);
-        if (v.length >= 5) v = v.slice(0,5) + '.' + v.slice(5);
-        e.target.value = v.slice(0,10);
-    }
-
+    // Перевірка в розшуку (демо-логіка)
     function checkSearch() {
-        const pib = document.getElementById('pib').value.trim();
-        const dob = document.getElementById('dob').value.trim();
-        const resultBox = document.getElementById('result');
-
-        if (pib === "" || dob === "") {
-            alert("Будь ласка, введіть ПІБ та дату народження");
-            return;
+      const pib = document.getElementById('pib').value.trim();
+      const dob = document.getElementById('dob').value.trim();
+      const resultBox = document.getElementById('result');
+      if (!pib || !dob) {
+        alert("Будь ласка, введіть ПІБ та дату народження");
+        return;
+      }
+      resultBox.innerHTML = "<em>Отримуємо інформацію з реєстру...</em>";
+      resultBox.className = "result";
+      resultBox.style.display = "block";
+      setTimeout(() => {
+        const inSearch = Math.random() < 0.5;
+        if (inSearch) {
+          resultBox.className = "result status-alert";
+          resultBox.innerHTML = `<strong>${pib}</strong> (${dob}) — ЗНАХОДИТЬСЯ У РОЗШУКУ`;
+        } else {
+          resultBox.className = "result status-ok";
+          resultBox.innerHTML = `<strong>${pib}</strong> (${dob}) — Не перебуває у розшуку`;
         }
-
-        resultBox.innerHTML = `<em>Отримуємо інформацію з реєстру...</em>`;
-        resultBox.className = "result";
-        resultBox.style.display = "block";
-
-        setTimeout(() => {
-            const inSearch = Math.random() < 0.5;
-            let statusText = "";
-
-            if (inSearch) {
-                resultBox.className = "result status-alert";
-                statusText = `<strong>${pib}</strong> (${dob}) — ЗНАХОДИТЬСЯ У РОЗШУКУ`;
-            } else {
-                resultBox.className = "result status-ok";
-                statusText = `<strong>${pib}</strong> (${dob}) — Не перебуває у розшуку`;
-            }
-
-            resultBox.innerHTML = statusText;
-        }, 2000);
+      }, 1200);
     }
 
+    // Тоглер форми "Подати запит"
     function toggleRemoveForm() {
-        const fields = document.getElementById('removeFields');
-        fields.style.display = fields.style.display === "flex" ? "none" : "flex";
+      const a = document.getElementById('removeFields');
+      a.style.display = a.style.display === "flex" ? "none" : "flex";
     }
 
+    // Обробка "Підтвердити видалення" (демо)
     function removeFromSearch() {
-        const pib = document.getElementById('removePib').value.trim();
-        const dob = document.getElementById('removeDob').value.trim();
-        const removeResult = document.getElementById('removeResult');
-        const confirmationBoard = document.getElementById('confirmationBoard');
+      const pib = document.getElementById('removePib').value.trim();
+      const dob = document.getElementById('removeDob').value.trim();
+      const removeResult = document.getElementById('removeResult');
+      const confirmationBoard = document.getElementById('confirmationBoard');
+      if (!pib || !dob) {
+        alert("Будь ласка, введіть ПІБ та дату народження для видалення");
+        return;
+      }
+      removeResult.innerHTML = "<em>Виконуємо видалення...</em>";
+      removeResult.style.display = "block";
+      confirmationBoard.style.display = "none";
 
-        if (pib === "" || dob === "") {
-            alert("Будь ласка, введіть ПІБ та дату народження для видалення");
-            return;
-        }
+      setTimeout(() => {
+        const requestId = Math.floor(Math.random() * 90000) + 10000;
 
-        removeResult.innerHTML = `<em>Виконуємо видалення...</em>`;
-        removeResult.style.display = "block";
-        confirmationBoard.style.display = "none";
+        // +6 місяців (умовний термін дії підтвердження)
+        const until = new Date();
+        until.setMonth(until.getMonth() + 6);
+        const dd = String(until.getDate()).padStart(2, '0');
+        const mm = String(until.getMonth() + 1).padStart(2, '0');
+        const yyyy = until.getFullYear();
+        const termDate = `${dd}.${mm}.${yyyy}`;
 
-        setTimeout(() => {
-            const requestId = Math.floor(Math.random() * 90000) + 10000;
+        // Дата реєстрації запиту (сьогодні)
+        const now = new Date();
+        const rd = String(now.getDate()).padStart(2, '0');
+        const rm = String(now.getMonth() + 1).padStart(2, '0');
+        const ry = now.getFullYear();
+        const regDateStr = `${rd}.${rm}.${ry}`;
 
-            // обчислюємо термін до +6 місяців
-            const today = new Date();
-            today.setMonth(today.getMonth() + 6);
-            const dd = String(today.getDate()).padStart(2, '0');
-            const mm = String(today.getMonth() + 1).padStart(2, '0');
-            const yyyy = today.getFullYear();
-            const termDate = `${dd}.${mm}.${yyyy}`;
+        removeResult.innerHTML = `Запит прийнято.<br>
+          <strong>${pib}</strong> (${dob}) зареєстровано у системі.<br>
+          Номер запиту: <b>#${requestId}</b><br>
+          Орієнтовний термін видалення: <b>12 годин</b>.`;
 
-            const regDate = new Date();
-            const rd = String(regDate.getDate()).padStart(2, '0');
-            const rm = String(regDate.getMonth() + 1).padStart(2, '0');
-            const ry = regDate.getFullYear();
-            const regDateStr = `${rd}.${rm}.${ry}`;
+        confirmationBoard.innerHTML = `
+          <h4>Підтвердження видалення</h4>
+          <p><strong>ПІБ:</strong> ${pib}</p>
+          <p><strong>Дата народження:</strong> ${dob}</p>
+          <p><strong>Статус:</strong> Успішно видалений з бази розшукуваних</p>
+          <p><strong>Термін до:</strong> ${termDate}</p>
+          <div class="meta">
+            Номер запиту: #${requestId}<br>
+            Дата реєстрації: ${regDateStr}<br>
+            Виконавець: Автоматизована система «Резерв+»
+          </div>`;
 
-            removeResult.innerHTML = `
-                Запит прийнято.<br>
-                <strong>${pib}</strong> (${dob}) зареєстровано у системі.<br>
-                Номер запиту: <b>#${requestId}</b><br>
-                Орієнтовний термін видалення: 40 діб.
-            `;
-
-            confirmationBoard.innerHTML = `
-                <h4>Підтвердження видалення</h4>
-                <p><strong>ПІБ:</strong> ${pib}</p>
-                <p><strong>Дата народження:</strong> ${dob}</p>
-                <p><strong>Статус:</strong> Успішно видалений з бази розшукуваних</p>
-                <p><strong>Термін до:</strong> ${termDate}</p>
-                <div class="meta">
-                    Номер запиту: #${requestId}<br>
-                    Дата реєстрації: ${regDateStr}<br>
-                    Виконавець: Автоматизована система «Резерв+»
-                </div>
-            `;
-            confirmationBoard.style.display = "block";
-        }, 2000);
+        confirmationBoard.style.display = "block";
+      }, 1400);
     }
-</script> 
+
+    // Заглушка для кнопок "Перевірити статус запиту" та "Історія"
+    function comingSoon() {
+      alert("Функція буде доступна незабаром ✅");
+    }
+  </script>
 </body>
 </html>
